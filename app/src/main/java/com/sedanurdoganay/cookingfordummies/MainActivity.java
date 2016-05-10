@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         FatSecretAPI api = new FatSecretAPI("a01009a644334ed4a59778ca8c6ae346","9c7caefe189441f387c0213c25a6a0d7");
         Log.d("FATSECREEET","timamdıırCANNIKAOO");
 
+
     }
 
     @Override
