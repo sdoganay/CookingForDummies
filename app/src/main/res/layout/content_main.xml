@@ -2,53 +2,45 @@
 <TableLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_main"
-    tools:context="com.sedanurdoganay.cookingfordummies.MainActivity">
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:layout_gravity="center"
+    android:stretchColumns="1"
+    tools:context="com.example.bengisukose.caloriecalculator.MainActivity">
 
+    <TableRow
+        android:onClick="onCategoryItemClick"
+        android:tag="0">
 
-    <Space
-        android:layout_width="20px"
-        android:layout_height="150dp" />
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:paddingBottom="8dp"
+            android:src="@drawable/search"/>
 
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <TextView
+            android:gravity="center"
+            android:padding="3dip"
             android:text="Search Recipe"
-            android:id="@+id/search_button"
-            android:typeface="sans"
-            android:background="@android:color/holo_purple" />
+            android:textSize="34sp"/>
+    </TableRow>
 
-    <Space
-        android:layout_width="20px"
-        android:layout_height="20px" />
+    <TableRow
+        android:onClick="onCategoryItemClick"
+        android:tag="1">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Today&apos;s Recipe"
-        android:id="@+id/todaysRecipe_button"
-        android:typeface="sans"
-        android:background="@android:color/holo_purple" />
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:paddingBottom="8dp"
+            android:src="@drawable/recipe"/>
 
-    <Space
-        android:layout_width="20px"
-        android:layout_height="20px" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Settings"
-        android:id="@+id/settings_button"
-        android:typeface="sans"
-        android:background="@android:color/holo_purple" />
-
+        <TextView
+            android:gravity="center"
+            android:padding="3dip"
+            android:text="Today's Recipe"
+            android:textSize="34sp"/>
+    </TableRow>
 
 </TableLayout>
