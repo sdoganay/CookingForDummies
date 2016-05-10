@@ -26,7 +26,7 @@ public class RecipeSearch extends AppCompatActivity{
     }
 
 
-    private class RecipeSearcher extends AsyncTask<String, Void, JSONArray> {
+    class RecipeSearcher extends AsyncTask<String, Void, JSONArray> {
 
         private static final String ConsumerKey = "a01009a644334ed4a59778ca8c6ae346";
         private static final String ConsumerSecret = "9c7caefe189441f387c0213c25a6a0d7";
@@ -36,7 +36,6 @@ public class RecipeSearch extends AppCompatActivity{
             FatSecretAPI api = new FatSecretAPI(ConsumerKey, ConsumerSecret);
             JSONArray recipes=null;
 
-<<<<<<< HEAD
             try {
                 //lets search
                 JSONObject search = api.getRecipes(strings[0]);
@@ -72,11 +71,9 @@ public class RecipeSearch extends AppCompatActivity{
             return recipes;
         }
 
-=======
->>>>>>> origin/master
     }
 
-    private class FullRecipeGetter extends AsyncTask<Long, Void, RecipeItem> {
+    class FullRecipeGetter extends AsyncTask<Long, Void, RecipeItem> {
 
         private static final String ConsumerKey = "a01009a644334ed4a59778ca8c6ae346";
         private static final String ConsumerSecret = "9c7caefe189441f387c0213c25a6a0d7";
