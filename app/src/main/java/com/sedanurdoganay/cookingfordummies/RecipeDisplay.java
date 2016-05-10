@@ -15,10 +15,10 @@ public class RecipeDisplay extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_display);
-        WebView view = (WebView) findViewById(R.id.webView);
-        view.setWebChromeClient(new WebChromeClient());
-        view.getSettings().setJavaScriptEnabled(true);
-        view.loadUrl("http://www.fatsecret.com/recipes/baked-lemon-snapper/Default.aspx");
+        WebView webView = (WebView) findViewById(R.id.webView);
+        webView.setWebViewClient(new MyWebViewClient());
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl("http://www.fatsecret.com/recipes/baked-lemon-snapper/Default.aspx");
 
     }
 
