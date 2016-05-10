@@ -7,7 +7,7 @@
     android:padding="16dp"
     android:layout_gravity="center"
     android:stretchColumns="1"
-    tools:context="com.example.bengisukose.caloriecalculator.MainActivity">
+    tools:context="com.sedanurdoganay.cookingfordummies.MainActivity">
 
     <TableRow
         android:onClick="onCategoryItemClick"
