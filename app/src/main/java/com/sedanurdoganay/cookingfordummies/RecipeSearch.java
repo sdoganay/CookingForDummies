@@ -17,7 +17,6 @@ public class RecipeSearch extends AppCompatActivity{
         setContentView(R.layout.recipe_search);
 
 
-
     }
 
 }
