@@ -35,9 +35,11 @@ public class RecipeDisplay extends AppCompatActivity  implements TextToSpeech.On
         webView.setWebViewClient(new MyWebViewClient());
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl("http://www.fatsecret.com/recipes/baked-lemon-snapper/Default.aspx");
-        tts = new TextToSpeech(this,this);
+
         playButton = (Button) findViewById(R.id.play_button);
         playButton.setOnClickListener(this);
+        tts = new TextToSpeech(this,this);
+        text ="hello everyone, what is going on?";
 
     }
     @Override
@@ -68,7 +70,7 @@ public class RecipeDisplay extends AppCompatActivity  implements TextToSpeech.On
     @Override
     public void onClick(View v) {
         if (v == playButton) {
-            text ="hello everyone, what is going on?";
+
             speakOut();
         }
     }

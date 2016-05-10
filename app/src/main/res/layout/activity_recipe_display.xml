@@ -21,6 +21,13 @@
             android:text="play"
             android:id="@+id/play_button"
             android:layout_column="4" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Speak"
+            android:id="@+id/speak_button"
+            android:layout_column="6" />
     </TableRow>
 
     <WebView
