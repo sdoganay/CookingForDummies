@@ -14,6 +14,13 @@
         <Space
             android:layout_width="20px"
             android:layout_height="100dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="play"
+            android:id="@+id/play_button"
+            android:layout_column="4" />
     </TableRow>
 
     <WebView

@@ -36,6 +36,7 @@ public class RecipeSearch extends AppCompatActivity{
             FatSecretAPI api = new FatSecretAPI(ConsumerKey, ConsumerSecret);
             JSONArray recipes=null;
 
+<<<<<<< HEAD
             try {
                 //lets search
                 JSONObject search = api.getRecipes(strings[0]);
@@ -71,6 +72,8 @@ public class RecipeSearch extends AppCompatActivity{
             return recipes;
         }
 
+=======
+>>>>>>> origin/master
     }
 
     private class FullRecipeGetter extends AsyncTask<Long, Void, RecipeItem> {
