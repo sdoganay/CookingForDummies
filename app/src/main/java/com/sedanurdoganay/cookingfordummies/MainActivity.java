@@ -1,5 +1,6 @@
 package com.sedanurdoganay.cookingfordummies;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -45,5 +46,26 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    //public void onNewItemClick(View v) {
+     //   startActivity(new Intent(this, NewItemAdder.class));
+    //}
+
+    public void onClickTo(View view) {
+        int categoryId = Integer.parseInt(view.getTag().toString());
+       // CategoryListViewer.Category cat = null;
+        Log.v("cat pressed: ", categoryId +"");
+        switch (categoryId){
+            case 0:
+                Intent intent1 = new Intent (MainActivity.this, RecipeSearch.class);
+                startActivity(intent1);
+
+                break;
+            case 1:
+                Intent intent2 = new Intent (MainActivity.this, RecipeDisplay.class);
+                startActivity(intent2);
+                break;
+
+        }
     }
 }

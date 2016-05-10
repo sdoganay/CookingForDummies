@@ -10,7 +10,7 @@
     tools:context="com.sedanurdoganay.cookingfordummies.MainActivity">
 
     <TableRow
-        android:onClick="onCategoryItemClick"
+        android:onClick="onClickTo"
         android:tag="0">
 
         <ImageView
@@ -27,7 +27,7 @@
     </TableRow>
 
     <TableRow
-        android:onClick="onCategoryItemClick"
+        android:onClick="onClickTo"
         android:tag="1">
 
         <ImageView
