@@ -46,11 +46,17 @@ public class AsyncBackgroungTask extends AsyncTask<Void, Void, Void> {
                 //get the full recipe
                 JSONObject fullrecipe = api.getRecipe(88339);
                 Log.d("fullrecipe: ", fullrecipe.toString());
-                JSONArray directions = fullrecipe.getJSONArray("directions");
+                JSONObject result = fullrecipe.getJSONObject("result");
+                JSONObject recipe = result.getJSONObject("recipe");
+                JSONObject directions = recipe.getJSONObject("directions");
+                JSONArray directionlar = directions.getJSONArray("direction");
                 Log.d("directions: ", directions.toString());
-                JSONObject direction = directions.getJSONObject(directions.length() - 1);//son direction'ı ver
+                JSONObject direction = directionlar.getJSONObject(directionlar.length() - 1);//son direction'ı ver
+                Log.d("direction: ", direction.toString());
                 String directionDescript = direction.getString("direction_description");
-                Log.d("Direction: ", directionDescript);
+                Log.d("directionDescript: "+ (directionlar.length()) +" ->", directionDescript);
+                //"direction_description":"Let simmer for 30 minutes.","direction_number":"4"
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
