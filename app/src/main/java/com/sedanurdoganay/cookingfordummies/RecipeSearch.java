@@ -25,6 +25,11 @@ public class RecipeSearch extends AppCompatActivity {
 
     }
 
+<<<<<<< Updated upstream
+=======
+    class RecipeSearcher extends AsyncTask<String, Void, JSONArray> {
+
+>>>>>>> Stashed changes
 
     class RecipeSearcher extends AsyncTask<String, Void, SearchItem[]> {
 
@@ -36,6 +41,11 @@ public class RecipeSearch extends AppCompatActivity {
         protected SearchItem[] doInBackground(String... strings) {
             FatSecretAPI api = new FatSecretAPI(ConsumerKey, ConsumerSecret);
 
+<<<<<<< Updated upstream
+=======
+            JSONArray recipes = null;
+
+>>>>>>> Stashed changes
             SearchItem[] recipeResults = null;
 
             try {
