@@ -21,26 +21,36 @@ public class RecipeSearch extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recipe_search);
+        setContentView(R.layout.activity_recipe_list);
 
     }
 
 
-    class RecipeSearcher extends AsyncTask<String, Void, JSONArray> {
+    class RecipeSearcher extends AsyncTask<String, Void, SearchItem[]> {
 
         private static final String ConsumerKey = "a01009a644334ed4a59778ca8c6ae346";
         private static final String ConsumerSecret = "9c7caefe189441f387c0213c25a6a0d7";
 
         @Override
-        protected JSONArray doInBackground(String... strings) {
+        protected SearchItem[] doInBackground(String... strings) {
             FatSecretAPI api = new FatSecretAPI(ConsumerKey, ConsumerSecret);
-            JSONArray recipes=null;
+            SearchItem[] recipeResults = null;
 
             try {
                 //lets search
                 JSONObject search = api.getRecipes(strings[0]);
                 JSONObject searchResults = search.getJSONObject("result").getJSONObject("recipes");
-                recipes = searchResults.getJSONArray("recipe");
+                JSONArray recipes = searchResults.getJSONArray("recipe");
+                recipeResults = new SearchItem[recipes.length()];
+                for(int i=0;i< recipes.length();i++){
+                    JSONObject recipe = (JSONObject) recipes.get(i);
+                    SearchItem item = new SearchItem();
+                    item.setDescription(recipe.getString("recipe_description"));
+                    item.setId(recipe.getLong("recipe_id"));
+                    item.setImageURL(new URL(recipe.getString("recipe_image")));
+                    item.setName(recipe.getString("recipe_name"));
+                    recipeResults[i] = item;
+                }
 
                /*
                 JSONObject recipe = recipes.getJSONObject(1);
@@ -68,7 +78,7 @@ public class RecipeSearch extends AppCompatActivity{
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return recipes;
+            return recipeResults;
         }
 
     }
