@@ -20,6 +20,10 @@ public class RecipeSearch extends AppCompatActivity{
 
     }
 
+<<<<<<< Updated upstream
+=======
+    private String query;
+>>>>>>> Stashed changes
     
 
 }

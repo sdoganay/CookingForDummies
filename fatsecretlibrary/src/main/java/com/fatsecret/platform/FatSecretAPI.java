@@ -16,6 +16,8 @@
 
 package com.fatsecret.platform;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -66,7 +68,7 @@ public class FatSecretAPI {
 	 * <p>
 	 * They only support "HMAC-SHA1"
 	 */
-	final private String APP_SIGNATURE_METHOD = "HmacSHA1";
+	final private String APP_SIGNATURE_METHOD = "HMAC-SHA1";
 
 	/**
 	 * The HTTP Method supported by FatSecret API
@@ -99,7 +101,7 @@ public class FatSecretAPI {
 		for (int i = 0; i < r.nextInt(8) + 2; i++) {
 			n.append(r.nextInt(26) + 'a');
 		}
-		return n.toString();
+		return "seda"+ n.toString();
 	}
 
 	/**
@@ -110,7 +112,7 @@ public class FatSecretAPI {
 	public String[] generateOauthParams() {
 		String[] a = {
 				"oauth_consumer_key=" + APP_KEY,
-				"oauth_signature_method=HMAC-SHA1",
+				"oauth_signature_method="+APP_SIGNATURE_METHOD,
 				"oauth_timestamp=" + new Long(System.currentTimeMillis() / 1000).toString(),
 				"oauth_nonce=" + nonce(),
 				"oauth_version=1.0",
@@ -248,7 +250,7 @@ public class FatSecretAPI {
 
 		} catch (Exception e) {
 			JSONObject error = new JSONObject();
-			error.put("message", "There was an error in processing your request. Please try again later.");
+			error.put("message", "getFoodItems: There was an error in processing your request. Please try again later.");
 			result.put("error", error);
 		}
 
@@ -291,7 +293,7 @@ public class FatSecretAPI {
 
 		} catch (Exception e) {
 			JSONObject error = new JSONObject();
-			error.put("message", "There was an error in processing your request. Please try again later.");
+			error.put("message", "getFoodItemsAtPageNumber: There was an error in processing your request. Please try again later.");
 			result.put("error", error);
 		}
 
@@ -330,7 +332,7 @@ public class FatSecretAPI {
 
 		} catch (Exception e) {
 			JSONObject error = new JSONObject();
-			error.put("message", "There was an error in processing your request. Please try again later.");
+			error.put("message", "getFoodItem: There was an error in processing your request. Please try again later.");
 			result.put("error", error);
 		}
 
@@ -350,27 +352,44 @@ public class FatSecretAPI {
 		List<String> params = new ArrayList<String>(Arrays.asList(generateOauthParams()));
 		String[] template = new String[1];
 		params.add("method=recipes.search");
-		params.add("max_results=50");
+		params.add("max_results=10");
 		params.add("search_expression=" + encode(query));
 		params.add("oauth_signature=" + sign(HTTP_METHOD, APP_URL, params.toArray(template)));
 
+		URL url = null;
 		try {
-			URL url = new URL(APP_URL + "?" + paramify(params.toArray(template)));
-			URLConnection api = url.openConnection();
+			url = new URL(APP_URL + "?" + paramify(params.toArray(template)));
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		URLConnection api=null;
+
+		try {
+			api = url.openConnection();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+
+
 			String line;
 			StringBuilder builder = new StringBuilder();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(api.getInputStream()));
 
-			while ((line = reader.readLine()) != null) builder.append(line);
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(api.getInputStream()))) {
 
-			JSONObject json = new JSONObject(builder.toString());
+			try {
+				while ((line = reader.readLine()) != null) builder.append(line);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		JSONObject json = new JSONObject(builder.toString());
 			result.put("result", json);
 
-		} catch (Exception e) {
-			JSONObject error = new JSONObject();
-			error.put("message", "There was an error in processing your request. Please try again later.");
-			result.put("error", error);
-		}
+
 		return result;
 	}
 
@@ -446,7 +465,7 @@ public class FatSecretAPI {
 
 		} catch (Exception e) {
 			JSONObject error = new JSONObject();
-			error.put("message", "There was an error in processing your request. Please try again later.");
+			error.put("message", "getRecipe: There was an error in processing your request. Please try again later.");
 			result.put("error", error);
 		}
 		return result;
