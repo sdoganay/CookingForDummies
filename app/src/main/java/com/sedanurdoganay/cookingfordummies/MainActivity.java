@@ -2,21 +2,11 @@ package com.sedanurdoganay.cookingfordummies;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import com.fatsecret.platform.FatSecretAPI;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,8 +16,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        AsyncBackgroungTask task = new AsyncBackgroungTask();
-        task.execute();
+        //SearchFor task = new SearchFor();
+        //task.execute();
 
 
 
