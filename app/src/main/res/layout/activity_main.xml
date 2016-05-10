@@ -1,20 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<TableLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="com.sedanurdoganay.cookingfordummies.MainActivity">
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:layout_gravity="center"
+    android:stretchColumns="1"
+    tools:context="com.example.bengisukose.caloriecalculator.MainActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:theme="@style/AppTheme.AppBarOverlay">
+    <TableRow
+        android:onClick="onCategoryItemClick"
+        android:tag="0">
 
-    </android.support.design.widget.AppBarLayout>
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:paddingBottom="8dp"
+            android:src="@drawable/search"/>
 
-    <include layout="@layout/content_main"/>
+        <TextView
+            android:gravity="center"
+            android:padding="3dip"
+            android:text="Search Recipe"
+            android:textSize="34sp"/>
+    </TableRow>
 
-</android.support.design.widget.CoordinatorLayout>
+    <TableRow
+        android:onClick="onCategoryItemClick"
+        android:tag="1">
+
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:paddingBottom="8dp"
+            android:src="@drawable/recipe"/>
+
+        <TextView
+            android:gravity="center"
+            android:padding="3dip"
+            android:text="Today's Recipe"
+            android:textSize="34sp"/>
+    </TableRow>
+
+</TableLayout>
