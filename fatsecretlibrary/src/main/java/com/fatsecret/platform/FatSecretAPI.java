@@ -352,7 +352,7 @@ public class FatSecretAPI {
 		List<String> params = new ArrayList<String>(Arrays.asList(generateOauthParams()));
 		String[] template = new String[1];
 		params.add("method=recipes.search");
-		params.add("max_results=10");
+		params.add("max_results=50");
 		params.add("search_expression=" + encode(query));
 		params.add("oauth_signature=" + sign(HTTP_METHOD, APP_URL, params.toArray(template)));
 

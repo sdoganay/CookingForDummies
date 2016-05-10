@@ -6,22 +6,34 @@
               android:orientation="horizontal"
               tools:ignore = "UseCompoundDrawables">
 
-    <TextView
-        android:id="@+id/listText"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-        android:padding="8dp"
-        android:textIsSelectable="false"
-        android:textSize="24sp"/>
-
-    <TextView
-        android:id="@+id/listTextCal"
+    <WebView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:padding="16dp"
-        android:textIsSelectable="false"
-        android:textSize="16sp"/>
+        android:layout_height="match_parent"
+        android:id="@+id/recipe_image_view" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/recipe_name_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:padding="16dp"
+            android:textIsSelectable="false"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/recipe_description_view"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:padding="8dp"
+            android:textIsSelectable="false"
+            android:textSize="24sp"/>
+    </LinearLayout>
+
 </LinearLayout>
