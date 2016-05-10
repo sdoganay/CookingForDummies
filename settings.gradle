@@ -1,1 +1,1 @@
-include ':app', ':FatSecret4j'
+include ':app', ':FatSecret4j', ':fatsecretlibrary'

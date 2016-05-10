@@ -5,9 +5,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.fatsecret.platform.FatSecretAPI;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,6 +18,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d("FATSECREEET","HALOOO");
+        FatSecretAPI api = new FatSecretAPI("a01009a644334ed4a59778ca8c6ae346","9c7caefe189441f387c0213c25a6a0d7");
+        Log.d("FATSECREEET","timamdıırCANNIKAOO");
 
     }
 
