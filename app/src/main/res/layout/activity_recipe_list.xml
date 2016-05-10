@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/empty"
-        android:text="@string/list_empty_str"
+        android:text="empty"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
