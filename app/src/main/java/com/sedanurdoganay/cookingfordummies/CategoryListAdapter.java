@@ -14,7 +14,7 @@ import java.util.List;
 
 
 public class CategoryListAdapter extends BaseAdapter {
-    private List<FoodItem> data;
+    private SearchItem[] data;
     private LayoutInflater inflater;
 
     public CategoryListAdapter(List<FoodItem> data, Context conteext){
