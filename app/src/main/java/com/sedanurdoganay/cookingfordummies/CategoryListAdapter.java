@@ -49,7 +49,7 @@ public class CategoryListAdapter extends BaseAdapter {
         }
         viewHolder.nameView.setText(data.get(position).getName());
         viewHolder.descriptionView.setText(data.get(position).getDescription());
-        //viewHolder.imageView -> //TODO WEBView Setting yapilacak!
+        viewHolder.imageView.loadUrl(data.get(position).getDescription());
 
         return localView;
     }
