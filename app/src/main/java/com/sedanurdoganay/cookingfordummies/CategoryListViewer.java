@@ -13,22 +13,15 @@ import android.widget.Toast;
 import java.util.List;
 
 public class CategoryListViewer extends AppCompatActivity implements OnItemClickListener, AdapterView.OnItemLongClickListener{
-    public static final String KEY_CATEGORY = "tj.ic.categorylistviewer.category";
-    private Category category;
-    private TextView totalCal;
-    private DatabaseHandler dbHandler;
+    private RecipeSearch recipeSearcher;
     private CategoryListAdapter adapter;
-    private List<FoodItem> data;
+    private List<SearchItem> data;
 
-    public enum Category {
-        BREAKFAST, LUNCH, DINNER, SNACKS, RECEIVED, TOTAL_CONSUMED
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list);
-        category = getContainer();
         dbHandler = new DatabaseHandler(this);
 
 
