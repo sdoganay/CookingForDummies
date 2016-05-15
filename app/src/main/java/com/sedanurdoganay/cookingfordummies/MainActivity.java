@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
         //task.execute();
 
 
-
     }
 
     @Override
@@ -54,8 +53,7 @@ public class MainActivity extends AppCompatActivity {
         Log.v("cat pressed: ", categoryId +"");
         switch (categoryId){
             case 0:
-                Intent intent1 = new Intent (MainActivity.this, RecipeSearch.class);
-                startActivity(intent1);
+
 
                 break;
             case 1:
@@ -64,5 +62,13 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
         }
+    }
+
+    public void onRecipeSearchClick(View view){
+        startActivity(new Intent (MainActivity.this, RecipeSearch.class));
+    }
+
+    public void onTodaysRecipeClick(View view){
+        startActivity(new Intent (MainActivity.this, RecipeDisplay.class));
     }
 }

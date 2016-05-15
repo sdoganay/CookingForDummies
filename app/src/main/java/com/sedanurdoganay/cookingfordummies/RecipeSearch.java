@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * Created by sedanurdoganay on 10/05/16.
@@ -25,24 +26,24 @@ public class RecipeSearch extends AppCompatActivity {
 
     }
 
-    class RecipeSearcher extends AsyncTask<String, Void, SearchItem[]> {
+    class RecipeSearcher extends AsyncTask<String, Void, ArrayList<SearchItem>> {
 
 
         private static final String ConsumerKey = "a01009a644334ed4a59778ca8c6ae346";
         private static final String ConsumerSecret = "9c7caefe189441f387c0213c25a6a0d7";
 
         @Override
-        protected SearchItem[] doInBackground(String... strings) {
+        protected ArrayList<SearchItem> doInBackground(String... strings) {
             FatSecretAPI api = new FatSecretAPI(ConsumerKey, ConsumerSecret);
 
-            SearchItem[] recipeResults = null;
+            ArrayList<SearchItem> recipeResults = null;
 
             try {
                 //lets search
                 JSONObject search = api.getRecipes(strings[0]);
                 JSONObject searchResults = search.getJSONObject("result").getJSONObject("recipes");
                 JSONArray recipes = searchResults.getJSONArray("recipe");
-                recipeResults = new SearchItem[recipes.length()];
+                recipeResults = new ArrayList<SearchItem>();
                 for(int i=0;i< recipes.length();i++){
                     JSONObject recipe = (JSONObject) recipes.get(i);
                     SearchItem item = new SearchItem();
@@ -50,7 +51,7 @@ public class RecipeSearch extends AppCompatActivity {
                     item.setId(recipe.getLong("recipe_id"));
                     item.setImageURL(new URL(recipe.getString("recipe_image")));
                     item.setName(recipe.getString("recipe_name"));
-                    recipeResults[i] = item;
+                    recipeResults.add(item);
                 }
 
                /*

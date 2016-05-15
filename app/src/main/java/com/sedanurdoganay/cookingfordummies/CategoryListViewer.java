@@ -13,7 +13,7 @@ import android.widget.Toast;
 import java.util.List;
 
 public class CategoryListViewer extends AppCompatActivity implements OnItemClickListener, AdapterView.OnItemLongClickListener{
-    private RecipeSearch recipeSearcher;
+    private RecipeSearch searcher;
     private CategoryListAdapter adapter;
     private List<SearchItem> data;
 
@@ -22,44 +22,23 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list);
-        dbHandler = new DatabaseHandler(this);
+        searcher = new RecipeSearch();
 
 
         ListView list = (ListView)findViewById(R.id.list);
         list.setOnItemClickListener(this);
         list.setOnItemLongClickListener(this);
 
-        switch (category){
-            case BREAKFAST:
-                setTitle("Breakfast");
-                data = dbHandler.fetchAllItemsIn(0);
-                break;
-            case LUNCH:
-                setTitle("Lunch");
-                data = dbHandler.fetchAllItemsIn(1);
-                break;
-            case DINNER:
-                setTitle("Dinner");
-                data = dbHandler.fetchAllItemsIn(2);
-                break;
-            case SNACKS:
-                setTitle("Snacks");
-                data = dbHandler.fetchAllItemsIn(3);
-                break;
-            case RECEIVED:
-                setTitle("Received");
-                data = dbHandler.fetchAllItemsIn(4);
-                break;
-            case TOTAL_CONSUMED:
-                setTitle("Total Calories");
-                data = dbHandler.fetchAllItemsIn(5);
-                list.addHeaderView(
-                        LayoutInflater.from(this).inflate(R.layout.header, list, false),
-                        null, false);
-                totalCal = (TextView)findViewById(R.id.totalCal);
-                updateTotal();
-                break;
-        }
+
+        setTitle("");
+
+
+        setTitle("Breakfast");
+        data = dbHandler.fetchAllItemsIn(0);
+
+               // list.addHeaderView(
+                 //       LayoutInflater.from(this).inflate(R.layout.header, list, false),null, false);
+                //totalCal = (TextView)findViewById(R.id.totalCal);
 
         adapter = new CategoryListAdapter(data, this);
         list.setEmptyView(findViewById(R.id.empty));
@@ -67,17 +46,8 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
         registerForContextMenu(list);
     }
 
-
-    private Category getContainer() {
-        Category category = (Category) getIntent().getExtras().get(KEY_CATEGORY);
-        if (category == null) {
-            category = Category.BREAKFAST;
-        }
-        return category;
-    }
-
     @Override
-    public void onItemClick(AdapterView<?> listView, View view, int position, long id) {
+    public void onItemClick(AdapterView<?> listView, View view, int position, long id) { //TODO Click display'i açacak.
         if(category == Category.TOTAL_CONSUMED)
             return;
         FoodItem itemClicked = data.get(position);
@@ -91,7 +61,7 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
     }
 
     @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view,
+    public boolean onItemLongClick(AdapterView<?> parent, View view, //TODO longClick recipe'yi fav'a atsın.
                                    int position, long id) {
         if(category == Category.TOTAL_CONSUMED)
             position--;
@@ -108,13 +78,5 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
         }
     }
 
-    void updateTotal(){
-        if(category != Category.TOTAL_CONSUMED)
-            return;
-        int total = 0;
-        for(FoodItem item : data)
-            total += item.getCalories();
 
-        totalCal.setText(total+"");
-    }
 }
