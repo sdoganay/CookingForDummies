@@ -25,7 +25,7 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
         searcher = new RecipeSearch();
 
 
-        ListView list = (ListView)findViewById(R.id.list);
+        ListView list = (ListView)findViewById(R.id.listView);
         list.setOnItemClickListener(this);
         list.setOnItemLongClickListener(this);
 

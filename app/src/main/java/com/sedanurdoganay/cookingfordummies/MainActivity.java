@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         Log.v("cat pressed: ", categoryId +"");
         switch (categoryId){
             case 0:
-                
+
                 //TODO ->HALOO
                 break;
             case 1:
