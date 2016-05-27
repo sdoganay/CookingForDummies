@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent2 = new Intent (MainActivity.this, RecipeDisplay.class);
                 startActivity(intent2);
                 break;
+            case 2:
+                break;
 
         }
     }

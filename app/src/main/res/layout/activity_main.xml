@@ -41,4 +41,19 @@
             android:textSize="34sp"/>
     </TableRow>
 
+    <TableRow
+        android:onClick="addFavorite">
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:paddingBottom="8dp"
+            android:src="@drawable/favorite"/>
+        <TextView
+            android:gravity="center"
+            android:padding="3dip"
+            android:text="Favorite Recipe"
+            android:textSize="34sp"/>
+
+        </TableRow>
+
 </TableLayout>
