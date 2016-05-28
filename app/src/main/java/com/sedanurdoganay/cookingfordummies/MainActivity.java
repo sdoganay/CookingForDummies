@@ -16,10 +16,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        //SearchFor task = new SearchFor();
-        //task.execute();
-
-
     }
 
     @Override
