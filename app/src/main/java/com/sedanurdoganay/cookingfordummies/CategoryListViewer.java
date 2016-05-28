@@ -34,12 +34,7 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
         list.setOnItemClickListener(this);
         list.setOnItemLongClickListener(this);
 
-<<<<<<< HEAD
-
         setTitle("Breakfast");
-=======
-        setTitle("");
->>>>>>> origin/master
 
         RecipeSearcher task = new RecipeSearcher();
         task.execute(new String[] { "http://www.vogella.com" });
