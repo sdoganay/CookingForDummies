@@ -30,13 +30,13 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
         list.setOnItemLongClickListener(this);
 
 
-        setTitle("");
-
-
         setTitle("Breakfast");
-        data = dbHandler.fetchAllItemsIn(0);
 
-               // list.addHeaderView(
+        RecipeSearcher task = new RecipeSearcher();
+        task.execute(new String[] { "http://www.vogella.com" });
+
+
+        // list.addHeaderView(
                  //       LayoutInflater.from(this).inflate(R.layout.header, list, false),null, false);
                 //totalCal = (TextView)findViewById(R.id.totalCal);
 
