@@ -16,6 +16,12 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
     private RecipeSearch searcher;
     private CategoryListAdapter adapter;
     private List<SearchItem> data;
+    private DatabaseHandler dbHandler;
+    private Category category;
+
+    public enum Category {
+        FAVORITE , SEARCH
+    }
 
 
     @Override
@@ -24,11 +30,9 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
         setContentView(R.layout.activity_recipe_list);
         searcher = new RecipeSearch();
 
-
         ListView list = (ListView)findViewById(R.id.listView);
         list.setOnItemClickListener(this);
         list.setOnItemLongClickListener(this);
-
 
         setTitle("");
 
@@ -48,9 +52,9 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
 
     @Override
     public void onItemClick(AdapterView<?> listView, View view, int position, long id) { //TODO Click display'i açacak.
-        if(category == Category.TOTAL_CONSUMED)
+        if(category == Category.FAVORITE)
             return;
-        FoodItem itemClicked = data.get(position);
+        SearchItem itemClicked = data.get(position);
         FoodItem consumed = new FoodItem(itemClicked.getItemName(), itemClicked.getCalories(), 5);
         dbHandler.createFoodItems(consumed);
 
@@ -61,11 +65,13 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
     }
 
     @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, //TODO longClick recipe'yi fav'a atsın.
-                                   int position, long id) {
-        if(category == Category.TOTAL_CONSUMED)
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+        //TODO longClick recipe'yi fav'a atsın.
+
+        if(category == Category.SEARCH)
             position--;
-        FoodItem itemClicked = data.get(position);
+        SearchItem itemClicked = data.get(position);
 
         if(dbHandler.deleteFoodItem(itemClicked.getId())) {
             Toast.makeText(this, "deleted successfully!", Toast.LENGTH_SHORT).show();
