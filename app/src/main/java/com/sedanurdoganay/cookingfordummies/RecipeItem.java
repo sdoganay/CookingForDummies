@@ -1,5 +1,7 @@
 package com.sedanurdoganay.cookingfordummies;
 
+import android.provider.BaseColumns;
+
 import java.net.URL;
 
 /**
@@ -14,7 +16,14 @@ recipe_url – URL of this recipe item on www.fatsecret.com.
 recipe_description – A short description of the recipe.
 recipe_image – URL of this recipe item's default image, only if this is available
  */
-public class RecipeItem {
+public class RecipeItem implements BaseColumns{
+
+    public static final String TABLE_NAME = "cooking_for_dummies_data";
+    public static final String COLUMN_NAME_ITEM = "item";
+    public static final String COLUMN_NAME_CAL = "cal";
+    public static final String COLUMN_NAME_CATEGORY = "category";
+    public static final String ITEM_IMAGE = "image";
+    public static final String COLUMN_DIRECTIONS = "directions";
 
     private long id;
     private String name;
