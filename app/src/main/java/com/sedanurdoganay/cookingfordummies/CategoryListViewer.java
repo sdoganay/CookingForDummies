@@ -13,7 +13,7 @@ import android.widget.Toast;
 import java.util.List;
 
 public class CategoryListViewer extends AppCompatActivity implements OnItemClickListener, AdapterView.OnItemLongClickListener{
-    private RecipeSearch searcher;
+
     private CategoryListAdapter adapter;
     private List<SearchItem> data;
     private DatabaseHandler dbHandler;
@@ -28,27 +28,40 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list);
-        searcher = new RecipeSearch();
 
         ListView list = (ListView)findViewById(R.id.listView);
         list.setOnItemClickListener(this);
         list.setOnItemLongClickListener(this);
 
-        setTitle("Breakfast");
-
-        RecipeSearcher task = new RecipeSearcher();
-        task.execute(new String[] { "http://www.vogella.com" });
-
+        switch (category){
+            case FAVORITE:
+                setTitle("Breakfast");
+                //TODO From database
+               // data = dbHandler.fetchAllItemsIn(0);
+                break;
+            case SEARCH:
+                setTitle("Lunch");
+                RecipeSearcher searcher = new RecipeSearcher(this);
+                searcher.execute();
+                //data = dbHandler.fetchAllItemsIn(1);
+                break;
+        }
 
         // list.addHeaderView(
                  //       LayoutInflater.from(this).inflate(R.layout.header, list, false),null, false);
                 //totalCal = (TextView)findViewById(R.id.totalCal);
+//TODO datayı adapter'a veriyor.
 
         adapter = new CategoryListAdapter(data, this);
         list.setEmptyView(findViewById(R.id.empty));
         list.setAdapter(adapter);
         registerForContextMenu(list);
     }
+
+    public void setData(List<SearchItem> data){
+        this.data=data;
+    }
+
 
     @Override
     public void onItemClick(AdapterView<?> listView, View view, int position, long id) { //TODO Click display'i açacak.

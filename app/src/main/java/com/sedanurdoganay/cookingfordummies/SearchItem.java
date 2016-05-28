@@ -5,7 +5,7 @@ import java.net.URL;
 /**
  * Created by sedanurdoganay on 11/05/16.
  */
-public class SearchItem {
+public class SearchItem extends RecipeItem{
 
     private URL imageURL;
     private String name;
