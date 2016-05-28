@@ -107,4 +107,20 @@ public class RecipeItem implements BaseColumns{
     protected void setDirections(String[] directions){
         this.directions = directions;
     }
+    @Override
+    public String toString(){
+        StringBuilder builder = new StringBuilder();
+        builder.append("RecipeItem [id=");
+        builder.append(id);
+        builder.append(", idForApi=");
+        builder.append(idInApi);
+        builder.append(", name=");
+        builder.append(name);
+        builder.append(", cal=");
+        builder.append(cal);
+        builder.append(", image=");
+        //builder.append(image);
+        //builder.append("]");
+        return builder.toString();
+    }
 }

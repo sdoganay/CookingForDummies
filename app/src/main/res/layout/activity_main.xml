@@ -45,7 +45,8 @@
 
     <TableRow
         android:onClick="onClickTo"
-        android:tag="2">
+        android:tag="2"
+        >
         <ImageView
             android:layout_width="64dp"
             android:layout_height="64dp"
