@@ -22,7 +22,6 @@ public class CategoryListAdapter extends BaseAdapter {
         this.data = data;
         inflater = LayoutInflater.from(conteext);
     }
-
     @Override
     public int getCount(){ return data.size(); }
 
@@ -36,7 +35,6 @@ public class CategoryListAdapter extends BaseAdapter {
     public View getView(int position, View converView, ViewGroup parent){
         ViewHolder viewHolder;
         View localView = converView;
-
         if(localView == null){
             localView = inflater.inflate(R.layout.list_row, parent, false);
             viewHolder = new ViewHolder();

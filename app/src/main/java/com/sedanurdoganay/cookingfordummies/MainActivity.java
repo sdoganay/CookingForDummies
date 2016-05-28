@@ -52,25 +52,25 @@ public class MainActivity extends AppCompatActivity {
        // CategoryListViewer.Category cat = null;
         Log.v("cat pressed: ", categoryId +"");
         switch (categoryId){
-            case 0:
-
-                //TODO ->HALOO
+            case 0: // SEARCH
+                startActivity(new Intent (MainActivity.this, RecipeSearch.class));
                 break;
-            case 1:
+            case 1: // TODAYS RECİPE
                 Intent intent2 = new Intent (MainActivity.this, RecipeDisplay.class);
                 startActivity(intent2);
                 break;
-            case 2:
+            case 2: // FAVORITE RECIPE
                 break;
 
         }
     }
-
-    public void onRecipeSearchClick(View view){
+     //Buna gerek kalmadı
+    /*public void onRecipeSearchClick(View view){
         startActivity(new Intent (MainActivity.this, RecipeSearch.class));
-    }
+    }*/
 
-    public void onTodaysRecipeClick(View view){
+    //Bu metoda Gerek kalmadı
+   /* public void onTodaysRecipeClick(View view){
         startActivity(new Intent (MainActivity.this, RecipeDisplay.class));
-    }
+    }*/
 }

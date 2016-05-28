@@ -19,6 +19,7 @@ recipe_image – URL of this recipe item's default image, only if this is availa
 public class RecipeItem implements BaseColumns{
 
     public static final String TABLE_NAME = "cooking_for_dummies_data";
+    public static final String ID_FOR_API = "id_for_api";
     public static final String COLUMN_NAME_ITEM = "item";
     public static final String COLUMN_NAME_CAL = "cal";
     public static final String COLUMN_NAME_CATEGORY = "category";
@@ -26,6 +27,7 @@ public class RecipeItem implements BaseColumns{
     public static final String COLUMN_DIRECTIONS = "directions";
 
     private long id;
+    private long idInApi;
     private String name;
     private URL recipeURL;
     private String description;
@@ -38,12 +40,16 @@ public class RecipeItem implements BaseColumns{
 
     }
 
-    public RecipeItem(long id, String name, URL recipeURL, String description, URL recipeImageURL ){
-        id=this.id;
+    public RecipeItem(long idInApi, String name, URL recipeURL, String description, URL recipeImageURL ){
+        idInApi=this.idInApi;
         name = this.name;
         recipeURL=this.recipeURL;
         description=this.description;
         recipeImageURL=this.recipeImageURL;
+    }
+
+    protected long getIdInApi() {
+        return idInApi;
     }
 
     protected long getId() {

@@ -10,7 +10,8 @@
     tools:context="com.sedanurdoganay.cookingfordummies.MainActivity">
 
     <TableRow
-        android:onClick="onRecipeSearchClick">
+        android:onClick="onClickTo"
+        android:tag="0">
 
         <ImageView
             android:layout_width="64dp"
@@ -26,7 +27,8 @@
     </TableRow>
 
     <TableRow
-        android:onClick="onTodaysRecipeClick">
+        android:onClick="onClickTo"
+        android:tag="1">
 
         <ImageView
             android:layout_width="64dp"
@@ -42,7 +44,8 @@
     </TableRow>
 
     <TableRow
-        android:onClick="onClickTo">
+        android:onClick="onClickTo"
+        android:tag="2">
         <ImageView
             android:layout_width="64dp"
             android:layout_height="64dp"

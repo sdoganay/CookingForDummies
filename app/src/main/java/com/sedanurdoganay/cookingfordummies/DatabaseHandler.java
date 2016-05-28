@@ -31,6 +31,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Log.d("YourTag", "table oldu");
         db.execSQL("CREATE TABLE " + RecipeItem.TABLE_NAME + " ("
                 + RecipeItem._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + RecipeItem.ID_FOR_API + " INTEGER"
                 + RecipeItem.COLUMN_NAME_ITEM + " TEXT,"
                 + RecipeItem.COLUMN_NAME_CAL + " INTEGER,"
                 + RecipeItem.COLUMN_NAME_CATEGORY + " INTEGER,"
@@ -65,20 +66,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 new String[]{String.valueOf(itemId)}) != 0;
     }
 
-    public List<FoodItem> fetchAllFoodItems() {
-        List<FoodItem> foodItems = new ArrayList<FoodItem>();
+    public List<RecipeItem> fetchAllFoodItems() {
+        List<RecipeItem> foodItems = new ArrayList<RecipeItem>();
 
-        Cursor cursor = db.query(FoodItem.TABLE_NAME, new String[]{
-                FoodItem._ID, FoodItem.COLUMN_NAME_ITEM, FoodItem.COLUMN_NAME_CAL,
-                FoodItem.COLUMN_NAME_CATEGORY, FoodItem.ITEM_IMAGE}, FoodItem.COLUMN_NAME_CATEGORY + " != 5 ", null, null, null, null);
+        Cursor cursor = db.query(RecipeItem.TABLE_NAME, new String[]{
+                RecipeItem._ID, RecipeItem.COLUMN_NAME_ITEM, RecipeItem.COLUMN_NAME_CAL,
+                RecipeItem.COLUMN_NAME_CATEGORY, RecipeItem.ITEM_IMAGE}, RecipeItem.COLUMN_NAME_CATEGORY + " != 5 ", null, null, null, null);
 
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                FoodItem foodItem = new FoodItem(cursor.getString(1), Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)),cursor.getBlob(4));
-                foodItem.setId(Integer.parseInt(cursor.getString(0)));
+                RecipeItem recipeItem = new RecipeItem(cursor.getString(1), Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)),cursor.getBlob(4));
+                recipeItem.setId(Integer.parseInt(cursor.getString(0)));
                 // Adding contact to list
-                foodItems.add(foodItem);
+                foodItems.add(recipeItem);
             } while (cursor.moveToNext());
         }
 
@@ -108,9 +109,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return foodItems;
     }
 
-
+    // Update metodu şimdilik kullanmayacağız
     // In case you want to update entry you can make use of this function
-    public int updateFoodItem(FoodItem foodItems) {
+   /* public int updateFoodItem(FoodItem foodItems) {
         ContentValues values = new ContentValues();
         values.put(FoodItem.COLUMN_NAME_ITEM, foodItems.getItemName());
         values.put(FoodItem.COLUMN_NAME_CAL, foodItems.getCalories());
@@ -119,7 +120,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return db.update(FoodItem.TABLE_NAME, values, FoodItem._ID + "=?",
                 new String[]{String.valueOf(foodItems.getId())});
-    }
+    }*/
 
     public boolean isDatabaseEmpty() {
         Cursor cursor = db.rawQuery("SELECT * FROM " + RecipeItem.TABLE_NAME, null);

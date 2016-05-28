@@ -23,7 +23,6 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
         FAVORITE , SEARCH
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
