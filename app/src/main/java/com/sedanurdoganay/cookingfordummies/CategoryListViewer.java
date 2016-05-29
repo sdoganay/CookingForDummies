@@ -12,59 +12,64 @@ import android.widget.Toast;
 
 import java.util.List;
 
-public class CategoryListViewer extends AppCompatActivity implements OnItemClickListener, AdapterView.OnItemLongClickListener{
-
+public class CategoryListViewer extends AppCompatActivity implements OnItemClickListener, AdapterView.OnItemLongClickListener {
+    public static final String KEY_CATEGORY = "com.sedanurdoganay.categorylistviewer.category";
     private CategoryListAdapter adapter;
     private List<SearchItem> data;
     private DatabaseHandler dbHandler;
     private Category category;
+    private TextView totalCal;
 
     public enum Category {
-        FAVORITE , SEARCH
+        FAVORITE, SEARCH, CALORIE
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_list);
+        setContentView(R.layout.item_list);
+        category = getContainer();
 
-        ListView list = (ListView)findViewById(R.id.listView);
+        ListView list = (ListView) findViewById(R.id.listView);
         list.setOnItemClickListener(this);
         list.setOnItemLongClickListener(this);
 
-        switch (category){
+        switch (category) {
             case FAVORITE:
-                setTitle("Breakfast");
+                setTitle("FAVORITE");
                 //TODO From database
-               // data = dbHandler.fetchAllItemsIn(0);
+                // data = dbHandler.fetchAllItemsIn(0);
                 break;
             case SEARCH:
-                setTitle("Lunch");
+                setTitle("RECIPE SEARCH");
                 RecipeSearcher searcher = new RecipeSearcher(this);
                 searcher.execute();
                 //data = dbHandler.fetchAllItemsIn(1);
                 break;
+            case CALORIE:
+                setTitle("CALORIE INTAKE");
+                // data almayı buraya ekle
+                //şu an datayı alamadığımız için inflater çalışmıyor.
+                list.addHeaderView(LayoutInflater.from(this).inflate(R.layout.header_total, list, false), null, false);
+                totalCal = (TextView)findViewById(R.id.totalCal);
+                //data = dbHandler.fetchAllItemsIn(1);
+                break;
         }
-
-        // list.addHeaderView(
-                 //       LayoutInflater.from(this).inflate(R.layout.header, list, false),null, false);
-                //totalCal = (TextView)findViewById(R.id.totalCal);
 //TODO datayı adapter'a veriyor.
 
-        adapter = new CategoryListAdapter(data, this);
+        /*adapter = new CategoryListAdapter(data, this);
         list.setEmptyView(findViewById(R.id.empty));
         list.setAdapter(adapter);
-        registerForContextMenu(list);
+        registerForContextMenu(list);*/
     }
 
-    public void setData(List<SearchItem> data){
-        this.data=data;
+    public void setData(List<SearchItem> data) {
+        this.data = data;
     }
 
 
     @Override
-   public void onItemClick(AdapterView<?> listView, View view, int position, long id) { //TODO Click display'i açacak.
-        if(category == Category.FAVORITE)
+    public void onItemClick(AdapterView<?> listView, View view, int position, long id) { //TODO Click display'i açacak.
+        /*if(category == Category.FAVORITE)
             return;
         SearchItem itemClicked = data.get(position);
         FoodItem consumed = new FoodItem(itemClicked.getItemName(), itemClicked.getCalories(), 5);
@@ -73,13 +78,13 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
         if(consumed.getId() == -1)
             Toast.makeText(this, "Item is not added!", Toast.LENGTH_SHORT).show();
         else
-            Toast.makeText(this, "Item added successfully!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Item added successfully!", Toast.LENGTH_SHORT).show();*/
     }
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-        //TODO longClick recipe'yi fav'a atsın.
+       /* //TODO longClick recipe'yi fav'a atsın.
 
         if(category == Category.SEARCH)
             position--;
@@ -93,7 +98,16 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
         } else {
             Toast.makeText(this, "Item is not deleted!", Toast.LENGTH_SHORT).show();
             return false;
-        }
+        }*/
+        return true;
+    }
+
+    private Category getContainer() {
+        Category category = (Category) getIntent().getExtras().get(KEY_CATEGORY);
+        /*if (category == null) {
+            category = Category.BREAKFAST;
+        }*/
+        return category;
     }
 
 

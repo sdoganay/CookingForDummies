@@ -24,8 +24,10 @@ public class RecipeItem implements BaseColumns{
     public static final String COLUMN_NAME_CAL = "cal";
     public static final String COLUMN_NAME_CATEGORY = "category";
     public static final String COLUMN_MEAL_TYPE = " meal type";
+
     // image şimdilik kullanmayacağız
     //public static final String ITEM_IMAGE = "image";
+
     public static final String COLUMN_DIRECTIONS = "directions";
 
     private long id;

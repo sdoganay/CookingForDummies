@@ -45,17 +45,34 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickTo(View view) {
         int categoryId = Integer.parseInt(view.getTag().toString());
-       // CategoryListViewer.Category cat = null;
+        CategoryListViewer.Category cat;
+        Intent intent;
+
         Log.v("cat pressed: ", categoryId +"");
         switch (categoryId){
             case 0: // SEARCH
+                cat = CategoryListViewer.Category.SEARCH;
+                Log.v("cat name: ", cat.toString());
                 startActivity(new Intent (MainActivity.this, CategoryListViewer.class));
                 break;
             case 1: // TODAYS RECİPE
-                Intent intent2 = new Intent (MainActivity.this, RecipeDisplay.class);
-                startActivity(intent2);
+
+                /*Intent intent2 = new Intent (MainActivity.this, RecipeDisplay.class);
+                startActivity(intent2);*/
                 break;
             case 2: // FAVORITE RECIPE
+                cat = CategoryListViewer.Category.FAVORITE;
+                intent=new Intent (MainActivity.this, CategoryListViewer.class);
+                intent.putExtra(CategoryListViewer.KEY_CATEGORY, cat);
+                startActivity(intent);
+                break;
+            case 3: // CALORIE INTAKE
+                cat = CategoryListViewer.Category.CALORIE;
+                Log.v("cat name: ", cat.toString());
+                intent=new Intent (MainActivity.this, CategoryListViewer.class);
+                Log.v("key catagory" , CategoryListViewer.KEY_CATEGORY.toString());
+                intent.putExtra(CategoryListViewer.KEY_CATEGORY, cat);
+                startActivity(intent);
                 break;
 
         }

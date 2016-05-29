@@ -60,4 +60,21 @@
 
         </TableRow>
 
+    <TableRow
+        android:onClick="onClickTo"
+        android:tag="3"
+        >
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:paddingBottom="8dp"
+            android:src="@drawable/calorie"/>
+        <TextView
+            android:gravity="center"
+            android:padding="3dip"
+            android:text="Calorie Intake"
+            android:textSize="34sp"/>
+
+    </TableRow>
+
 </TableLayout>
