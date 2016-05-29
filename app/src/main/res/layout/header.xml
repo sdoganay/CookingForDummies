@@ -15,6 +15,7 @@
         android:id="@+id/keywordView"
         android:editable="true" />
 
+<<<<<<< Updated upstream
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,4 +28,6 @@
         android:layout_height="wrap_content"
         android:text="Search"
         android:id="@+id/button" />
+=======
+>>>>>>> Stashed changes
 </LinearLayout>
