@@ -36,6 +36,7 @@ class RecipeSearcher extends AsyncTask<String, Void, ArrayList<SearchItem>> {
         try {
             //lets search
             JSONObject search = api.getRecipes(keywords[0]);
+
             JSONObject searchResults = search.getJSONObject("result").getJSONObject("recipes");
             JSONArray recipes = searchResults.getJSONArray("recipe");
             recipeResults = new ArrayList<SearchItem>();

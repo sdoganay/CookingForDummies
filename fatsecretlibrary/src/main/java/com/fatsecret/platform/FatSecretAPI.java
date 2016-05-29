@@ -393,6 +393,53 @@ public class FatSecretAPI {
 		return result;
 	}
 
+	public JSONObject getRecipesByMealType(String query,String type) throws UnsupportedEncodingException {
+		JSONObject result = new JSONObject();
+		List<String> params = new ArrayList<String>(Arrays.asList(generateOauthParams()));
+		String[] template = new String[1];
+		params.add("method=recipes.search");
+		params.add("max_results=50");
+		params.add("search_expression=" + encode(query));
+		params.add("recipe_type="+encode(type));
+		params.add("oauth_signature=" + sign(HTTP_METHOD, APP_URL, params.toArray(template)));
+
+		URL url = null;
+		try {
+			url = new URL(APP_URL + "?" + paramify(params.toArray(template)));
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		URLConnection api=null;
+
+		try {
+			api = url.openConnection();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+
+
+		String line;
+		StringBuilder builder = new StringBuilder();
+
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(api.getInputStream()))) {
+
+			try {
+				while ((line = reader.readLine()) != null) builder.append(line);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		JSONObject json = new JSONObject(builder.toString());
+		result.put("result", json);
+
+
+		return result;
+	}
+
 	/**
 	 * Returns JSONObject associated with the recipes depending on the search query
 	 *
@@ -427,7 +474,38 @@ public class FatSecretAPI {
 
 		} catch (Exception e) {
 			JSONObject error = new JSONObject();
-			error.put("message", "There was an error in processing your request. Please try again later.");
+			error.put("message", "getRecipesAtPageNumber: There was an error in processing your request. Please try again later.");
+			result.put("error", error);
+		}
+		return result;
+	}
+
+	public JSONObject getRecipesAtPageNumberByMealType(String query, String type, int pageNumber) throws UnsupportedEncodingException {
+		JSONObject result = new JSONObject();
+		List<String> params = new ArrayList<String>(Arrays.asList(generateOauthParams()));
+		String[] template = new String[1];
+		params.add("method=recipes.search");
+		params.add("max_results=50");
+		params.add("page_number="+pageNumber);
+		params.add("search_expression=" + encode(query));
+		params.add("recipe_type="+encode(type));
+		params.add("oauth_signature=" + sign(HTTP_METHOD, APP_URL, params.toArray(template)));
+
+		try {
+			URL url = new URL(APP_URL + "?" + paramify(params.toArray(template)));
+			URLConnection api = url.openConnection();
+			String line;
+			StringBuilder builder = new StringBuilder();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(api.getInputStream()));
+
+			while ((line = reader.readLine()) != null) builder.append(line);
+
+			JSONObject json = new JSONObject(builder.toString());
+			result.put("result", json);
+
+		} catch (Exception e) {
+			JSONObject error = new JSONObject();
+			error.put("message", "getRecipesAtPageNumberByMealType:There was an error in processing your request. Please try again later.");
 			result.put("error", error);
 		}
 		return result;
@@ -466,6 +544,37 @@ public class FatSecretAPI {
 		} catch (Exception e) {
 			JSONObject error = new JSONObject();
 			error.put("message", "getRecipe: There was an error in processing your request. Please try again later.");
+			result.put("error", error);
+		}
+		return result;
+	}
+
+
+
+	public JSONObject getRecipeTypes() throws UnsupportedEncodingException {
+		JSONObject result = new JSONObject();
+
+		List<String> params = new ArrayList<String>(Arrays.asList(generateOauthParams()));
+		String[] template = new String[1];
+		params.add("method=recipe_types.get");
+		params.add("oauth_signature=" + sign(HTTP_METHOD, APP_URL, params.toArray(template)));
+
+		try {
+			URL url = new URL(APP_URL + "?" + paramify(params.toArray(template)));
+			URLConnection api = url.openConnection();
+			String line;
+			StringBuilder builder = new StringBuilder();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(api.getInputStream()));
+
+			while ((line = reader.readLine()) != null) builder.append(line);
+
+			JSONObject json = new JSONObject(builder.toString());
+
+			result.put("result", json);
+
+		} catch (Exception e) {
+			JSONObject error = new JSONObject();
+			error.put("message", "getRecipeTypes: There was an error in processing your request. Please try again later.");
 			result.put("error", error);
 		}
 		return result;
