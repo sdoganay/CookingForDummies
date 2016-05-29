@@ -6,11 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.sedanurdoganay.cookingfordummies.CategoryListViewer">
 
-    <ListView
-        android:id="@+id/listView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <TextView
         android:id="@+id/textView"
         android:text="empty"
@@ -21,4 +16,10 @@
         android:padding="8dp"
         android:textIsSelectable="false"
         android:textSize="24sp" />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </RelativeLayout>
