@@ -3,6 +3,7 @@ package com.sedanurdoganay.cookingfordummies;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
+import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,6 +88,14 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
                 //RecipeSearcher searcher = new RecipeSearcher(this);
                 //searcher.execute();
                 //data = dbHandler.fetchAllItemsIn(1);
+                searchButton.setOnClickListener(new View.OnClickListener() {
+                    String text;
+                    @Override
+                    public void onClick(View v) {
+                        text = searchText.getText().toString();
+                        Log.v("aranacak kelimeler: ", text);
+                    }
+                });
                 break;
             case CALORIE:
                 setTitle("CALORIE INTAKE");
