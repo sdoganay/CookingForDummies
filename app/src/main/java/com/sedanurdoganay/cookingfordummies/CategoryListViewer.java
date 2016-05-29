@@ -8,21 +8,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryListViewer extends AppCompatActivity implements OnItemClickListener, AdapterView.OnItemLongClickListener {
+
+public class CategoryListViewer extends AppCompatActivity implements OnItemClickListener, AdapterView.OnItemLongClickListener, AdapterView.OnItemSelectedListener {
     public static final String KEY_CATEGORY = "com.sedanurdoganay.categorylistviewer.category";
     private CategoryListAdapter adapter;
     private List<SearchItem> data = new ArrayList<SearchItem>();
     private DatabaseHandler dbHandler;
     private Category category;
     private TextView totalCal;
-    private SearchView search ;
+    private Spinner spinner;
+    private EditText searchText;
+    private Button searchButton;
+
+
 
     public enum Category {
         FAVORITE, SEARCH, CALORIE
@@ -45,20 +54,47 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
                 break;
             case SEARCH:
                 setTitle("RECIPE SEARCH");
-                list.addHeaderView(LayoutInflater.from(this).inflate(R.layout.header, list, false), null, false);
-
-                RecipeSearcher searcher = new RecipeSearcher(this);
-                searcher.execute();
-                //data = dbHandler.fetchAllItemsIn(1);
-                break;
-            case CALORIE:
-                setTitle("CALORIE INTAKE");
-                // data almayı buraya ekle
                 SearchItem item1 = new SearchItem();
                 item1.setName("Seda");
                 item1.setCal(253);
                 item1.setDescription("cok guzel bi kiz");
                 data.add(item1);
+                Log.v("data adı: " ,data.get(0).getName().toString());
+                list.addHeaderView(LayoutInflater.from(this).inflate(R.layout.header, list, false), null, false);
+
+                searchText = (EditText) findViewById(R.id.keywordView);
+                searchButton = (Button) findViewById( R.id.button);
+
+                Spinner spinner = (Spinner) findViewById(R.id.spinner);
+                // Spinner click listener
+                spinner.setOnItemSelectedListener(this);
+                List<String> categories = new ArrayList<String>();
+                categories.add("Automobile");
+                categories.add("Business Services");
+                categories.add("Computers");
+                categories.add("Education");
+                categories.add("Personal");
+                categories.add("Travel");
+                // Creating adapter for spinner
+                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
+
+                // Drop down layout style - list view with radio button
+                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                // attaching data adapter to spinner
+                spinner.setAdapter(dataAdapter);
+                //RecipeSearcher searcher = new RecipeSearcher(this);
+                //searcher.execute();
+                //data = dbHandler.fetchAllItemsIn(1);
+                break;
+            case CALORIE:
+                setTitle("CALORIE INTAKE");
+                // data almayı buraya ekle
+                SearchItem item2 = new SearchItem();
+                item2.setName("Seda");
+                item2.setCal(253);
+                item2.setDescription("cok guzel bi kiz");
+                data.add(item2);
                 Log.v("data adı: " ,data.get(0).getName().toString());
 
                 list.addHeaderView(LayoutInflater.from(this).inflate(R.layout.header_total, list, false), null, false);
@@ -120,6 +156,17 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
             category = Category.BREAKFAST;
         }*/
         return category;
+    }
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // On selecting a spinner item
+        String item = parent.getItemAtPosition(position).toString();
+        Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 
 
