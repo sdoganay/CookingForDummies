@@ -24,7 +24,7 @@ import java.util.List;
 public class CategoryListViewer extends AppCompatActivity implements OnItemClickListener, AdapterView.OnItemLongClickListener, AdapterView.OnItemSelectedListener {
     public static final String KEY_CATEGORY = "com.sedanurdoganay.categorylistviewer.category";
     private CategoryListAdapter adapter;
-    private List<SearchItem> data = new ArrayList<SearchItem>();
+    private List<SearchItem> data= new ArrayList<SearchItem>() ;
     private DatabaseHandler dbHandler;
     private Category category;
     private TextView totalCal;
@@ -56,14 +56,20 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
                 // data = dbHandler.fetchAllItemsIn(0);
                 break;
             case SEARCH:
-
                 setTitle("RECIPE SEARCH");
-                SearchItem item1 = new SearchItem();
-                item1.setName("Seda");
+                /*item1.setName("Seda");
                 item1.setCal(253);
                 item1.setDescription("cok guzel bi kiz");
-                data.add(item1);
-                Log.v("data adı: " ,data.get(0).getName().toString());
+                data.add(item1);*/
+                //Log.v("data adı: " ,data.get(0).getName().toString());
+                if(data.size()==0){
+                    SearchItem item1 = new SearchItem();
+                    item1.setName("null");
+                    item1.setCal(253);
+                    item1.setDescription("cok guzel bi kiz");
+                    data.add(item1);
+
+                }
                 list.addHeaderView(LayoutInflater.from(this).inflate(R.layout.header, list, false), null, false);
 
                 searchText = (EditText) findViewById(R.id.keywordView);
@@ -100,12 +106,14 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
             case CALORIE:
                 setTitle("CALORIE INTAKE");
                 // data almayı buraya ekle
-                SearchItem item2 = new SearchItem();
-                item2.setName("Seda");
-                item2.setCal(253);
-                item2.setDescription("cok guzel bi kiz");
-                data.add(item2);
                 Log.v("data adı: " ,data.get(0).getName().toString());
+                if(data.size()==0){
+                    SearchItem item1 = new SearchItem();
+                    item1.setName("null");
+                    item1.setCal(253);
+                    item1.setDescription("cok guzel bi kiz");
+                    data.add(item1);
+                }
 
                 list.addHeaderView(LayoutInflater.from(this).inflate(R.layout.header_total, list, false), null, false);
                 totalCal = (TextView)findViewById(R.id.totalCal);
