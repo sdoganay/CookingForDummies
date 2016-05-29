@@ -1,4 +1,4 @@
-package tj.ic.caloriecalculator;
+
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -17,7 +17,7 @@ import java.util.Random;
 public class TodaysRecipeNotification {
 
 
-    public class ItemReceiver extends BroadcastReceiver {
+   /* public class ItemReceiver extends BroadcastReceiver {
 
 
         @Override
@@ -60,7 +60,7 @@ public class TodaysRecipeNotification {
             return rgen.nextInt(4);
         }
 
-    }
+    }*/
 
 
 

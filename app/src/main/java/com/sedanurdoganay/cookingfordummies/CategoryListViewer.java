@@ -2,6 +2,8 @@ package com.sedanurdoganay.cookingfordummies;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,6 +22,7 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
     private DatabaseHandler dbHandler;
     private Category category;
     private TextView totalCal;
+    private SearchView search ;
 
     public enum Category {
         FAVORITE, SEARCH, CALORIE
@@ -27,7 +30,7 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_list);
+        setContentView(R.layout.item_list);
         category = getContainer();
 
         ListView list = (ListView) findViewById(R.id.listView);
@@ -42,6 +45,8 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
                 break;
             case SEARCH:
                 setTitle("RECIPE SEARCH");
+                list.addHeaderView(LayoutInflater.from(this).inflate(R.layout.header, list, false), null, false);
+                search = (SearchView) findViewById(R.id.searchView) ;
                 RecipeSearcher searcher = new RecipeSearcher(this);
                 searcher.execute();
                 //data = dbHandler.fetchAllItemsIn(1);
@@ -54,18 +59,19 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
                 item1.setCal(253);
                 item1.setDescription("cok guzel bi kiz");
                 data.add(item1);
-                //şu an datayı alamadığımız için inflater çalışmıyor.
+                Log.v("data adı: " ,data.get(0).getName().toString());
+
                 list.addHeaderView(LayoutInflater.from(this).inflate(R.layout.header_total, list, false), null, false);
                 totalCal = (TextView)findViewById(R.id.totalCal);
                 //data = dbHandler.fetchAllItemsIn(1);
                 break;
         }
-//TODO datayı adapter'a veriyor.
 
-        /*adapter = new CategoryListAdapter(data, this);
+        //TODO datayı adapter'a veriyor.
+        adapter = new CategoryListAdapter(data, this);
         list.setEmptyView(findViewById(R.id.empty));
         list.setAdapter(adapter);
-        registerForContextMenu(list);*/
+        registerForContextMenu(list);
     }
 
     public void setData(List<SearchItem> data) {
