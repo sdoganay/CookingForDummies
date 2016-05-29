@@ -1,12 +1,21 @@
 package com.sedanurdoganay.cookingfordummies;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.fatsecret.platform.FatSecretAPI;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.net.URL;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -89,3 +98,55 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent (MainActivity.this, RecipeDisplay.class));
     }*/
 }
+
+
+/**
+ * Created by sedanurdoganay on 28/05/16.
+ */
+
+class RecipeTypeGetter extends AsyncTask<String, Void, ArrayList<String>> {
+
+    private static final String ConsumerKey = "a01009a644334ed4a59778ca8c6ae346";
+    private static final String ConsumerSecret = "9c7caefe189441f387c0213c25a6a0d7";
+
+
+    @Override
+    protected ArrayList<String> doInBackground(String... keywords) {
+        FatSecretAPI api = new FatSecretAPI(ConsumerKey, ConsumerSecret);
+
+        ArrayList<String> recipeResults = new ArrayList<>();
+
+        try {
+            //lets search
+            JSONObject search = api.getRecipeTypes();
+            Log.d("SearchTypes:",search.toString());
+            /*
+            JSONObject searchResults = search.getJSONObject("result").getJSONObject("recipes");
+            JSONArray recipes = searchResults.getJSONArray("recipe");
+            recipeResults = new ArrayList<SearchItem>();
+            for(int i=0;i< recipes.length();i++){
+                JSONObject recipe = (JSONObject) recipes.get(i);
+                SearchItem item = new SearchItem();
+                item.setDescription(recipe.getString("recipe_description"));
+                item.setId(recipe.getLong("recipe_id"));
+                item.setImageURL(new URL(recipe.getString("recipe_image")));
+                item.setName(recipe.getString("recipe_name"));
+                recipeResults.add(item);
+            }
+            */
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return recipeResults;
+    }
+
+    @Override
+    protected void onPostExecute(ArrayList<String> result) {
+        CategoryListViewer.RECIPE_TYPES = result;
+    }
+
+}
+//ends RecipeSearcher
+
+

@@ -33,6 +33,7 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
 
 
 
+
     public enum Category {
         FAVORITE, SEARCH, CALORIE
     }
