@@ -56,6 +56,7 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
                 // data = dbHandler.fetchAllItemsIn(0);
                 break;
             case SEARCH:
+
                 setTitle("RECIPE SEARCH");
                 SearchItem item1 = new SearchItem();
                 item1.setName("Seda");
@@ -68,16 +69,12 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
                 searchText = (EditText) findViewById(R.id.keywordView);
                 searchButton = (Button) findViewById( R.id.button);
 
-                Spinner spinner = (Spinner) findViewById(R.id.spinner);
+                final Spinner spinner = (Spinner) findViewById(R.id.spinner);
                 // Spinner click listener
                 spinner.setOnItemSelectedListener(this);
-                List<String> categories = new ArrayList<String>();
-                categories.add("Automobile");
-                categories.add("Business Services");
-                categories.add("Computers");
-                categories.add("Education");
-                categories.add("Personal");
-                categories.add("Travel");
+                List<String> categories = RECIPE_TYPES;
+                categories.add("All");
+
                 // Creating adapter for spinner
                 ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
 
@@ -94,7 +91,9 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
                     @Override
                     public void onClick(View v) {
                         text = searchText.getText().toString();
-                        Log.v("aranacak kelimeler: ", text);
+                        spinner.getSelectedItem();
+                        Log.v("aranacak kelimeler: ", text+spinner);
+
                     }
                 });
                 break;
