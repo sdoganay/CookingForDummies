@@ -46,7 +46,7 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
             case SEARCH:
                 setTitle("RECIPE SEARCH");
                 list.addHeaderView(LayoutInflater.from(this).inflate(R.layout.header, list, false), null, false);
-                search = (SearchView) findViewById(R.id.searchView);
+
                 RecipeSearcher searcher = new RecipeSearcher(this);
                 searcher.execute();
                 //data = dbHandler.fetchAllItemsIn(1);

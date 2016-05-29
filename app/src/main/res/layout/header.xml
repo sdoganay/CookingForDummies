@@ -8,14 +8,12 @@
               tools:context="com.sedanurdoganay.cookingfordummies.CategoryListViewer">
 
 
-    <TextView
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="tomato, meat"
-        android:id="@+id/keywordView"
-        android:editable="true" />
+        android:id="@+id/keywordView"/>
 
-<<<<<<< Updated upstream
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,6 +26,4 @@
         android:layout_height="wrap_content"
         android:text="Search"
         android:id="@+id/button" />
-=======
->>>>>>> Stashed changes
 </LinearLayout>
