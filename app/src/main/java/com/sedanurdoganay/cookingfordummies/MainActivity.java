@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         Log.v("cat pressed: ", categoryId +"");
         switch (categoryId){
             case 0: // SEARCH
-                startActivity(new Intent (MainActivity.this, RecipeSearch.class));
+                startActivity(new Intent (MainActivity.this, CategoryListViewer.class));
                 break;
             case 1: // TODAYS RECİPE
                 Intent intent2 = new Intent (MainActivity.this, RecipeDisplay.class);

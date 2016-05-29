@@ -66,7 +66,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 new String[]{String.valueOf(itemId)}) != 0;
     }
 
-    public List<RecipeItem> fetchAllFoodItems() {
+   /* public List<RecipeItem> fetchAllFoodItems() {
         List<RecipeItem> foodItems = new ArrayList<RecipeItem>();
 
         Cursor cursor = db.query(RecipeItem.TABLE_NAME, new String[]{
@@ -85,9 +85,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         // return contact list
         return foodItems;
-    }
+    }*/
 
-    public List<FoodItem> fetchAllItemsIn(int category) {
+   /* public List<FoodItem> fetchAllItemsIn(int category) {
         List<FoodItem> foodItems = new ArrayList<FoodItem>();
 
         Cursor cursor = db.query(FoodItem.TABLE_NAME, new String[]{
@@ -107,7 +107,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         // return contact list
         return foodItems;
-    }
+    }*/
 
     // Update metodu şimdilik kullanmayacağız
     // In case you want to update entry you can make use of this function
@@ -132,4 +132,5 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         createFoodItems(new FoodItem("Muffin", 375,0));
         createFoodItems(new FoodItem("Orange juice", 122,0));*/
     }
+
 }

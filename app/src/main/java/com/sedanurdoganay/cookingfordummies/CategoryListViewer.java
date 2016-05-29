@@ -63,7 +63,7 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
 
 
     @Override
-    public void onItemClick(AdapterView<?> listView, View view, int position, long id) { //TODO Click display'i açacak.
+   public void onItemClick(AdapterView<?> listView, View view, int position, long id) { //TODO Click display'i açacak.
         if(category == Category.FAVORITE)
             return;
         SearchItem itemClicked = data.get(position);
@@ -88,7 +88,7 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
         if(dbHandler.deleteFoodItem(itemClicked.getId())) {
             Toast.makeText(this, "deleted successfully!", Toast.LENGTH_SHORT).show();
             adapter.removeItem(position);
-            updateTotal();
+            //updateTotal();
             return true;
         } else {
             Toast.makeText(this, "Item is not deleted!", Toast.LENGTH_SHORT).show();
