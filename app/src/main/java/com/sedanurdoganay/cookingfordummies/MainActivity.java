@@ -23,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
+        RecipeTypeGetter task = new RecipeTypeGetter();
+        task.execute();
     }
 
     @Override
@@ -114,12 +114,19 @@ class RecipeTypeGetter extends AsyncTask<String, Void, ArrayList<String>> {
     protected ArrayList<String> doInBackground(String... keywords) {
         FatSecretAPI api = new FatSecretAPI(ConsumerKey, ConsumerSecret);
 
-        ArrayList<String> recipeResults = new ArrayList<>();
+        ArrayList<String> typeResults = null;
 
         try {
             //lets search
             JSONObject search = api.getRecipeTypes();
             Log.d("SearchTypes:",search.toString());
+            JSONObject searchResults = search.getJSONObject("result").getJSONObject("recipe_types");
+            JSONArray types = searchResults.getJSONArray("recipe_type");
+            typeResults = new ArrayList<String>();
+            for(int i=0;i< types.length();i++){
+                String type = (String) types.get(i);
+                typeResults.add(type);
+            }
             /*
             JSONObject searchResults = search.getJSONObject("result").getJSONObject("recipes");
             JSONArray recipes = searchResults.getJSONArray("recipe");
@@ -138,12 +145,13 @@ class RecipeTypeGetter extends AsyncTask<String, Void, ArrayList<String>> {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return recipeResults;
+        return typeResults;
     }
 
     @Override
     protected void onPostExecute(ArrayList<String> result) {
         CategoryListViewer.RECIPE_TYPES = result;
+        Log.d("postExec","CategoryListViewer.RECIPE_TYPES ="+CategoryListViewer.RECIPE_TYPES );
     }
 
 }
