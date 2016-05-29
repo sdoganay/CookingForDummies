@@ -23,24 +23,29 @@ public class RecipeItem implements BaseColumns{
     public static final String COLUMN_NAME_ITEM = "item";
     public static final String COLUMN_NAME_CAL = "cal";
     public static final String COLUMN_NAME_CATEGORY = "category";
-    public static final String ITEM_IMAGE = "image";
+    public static final String COLUMN_MEAL_TYPE = " meal type";
+    // image şimdilik kullanmayacağız
+    //public static final String ITEM_IMAGE = "image";
     public static final String COLUMN_DIRECTIONS = "directions";
 
     private long id;
-    private long idInApi;
     private String name;
     private URL recipeURL;
     private String description;
     private URL recipeImageURL;
     private int cal;
     private String[] directions;
+    private long idInApi;
+    private String mealType;
 
 
     public RecipeItem(){
 
     }
 
-    public RecipeItem(long idInApi, String name, URL recipeURL, String description, URL recipeImageURL ){
+    // id ye göre search
+    public RecipeItem(long idInApi, String name, URL recipeURL, String description, URL recipeImageURL,String mealType ){
+        mealType = this.mealType;
         idInApi=this.idInApi;
         name = this.name;
         recipeURL=this.recipeURL;
@@ -48,8 +53,31 @@ public class RecipeItem implements BaseColumns{
         recipeImageURL=this.recipeImageURL;
     }
 
+    //favorite için - recipe url ve image url yok
+    public RecipeItem(long id, long idInApi, String name, String description, String mealType){
+        id = this.id;
+        idInApi=this.idInApi;
+        name = this.name;
+        description=this.description;
+        mealType = this.mealType;
+    }
+
+
+
     protected long getIdInApi() {
         return idInApi;
+    }
+
+    protected void setIdInApi(long idInApi) {
+        this.idInApi=idInApi ;
+    }
+
+    protected String getMealType() {
+        return mealType;
+    }
+
+    protected void setIdInApi(String mealType) {
+        this.mealType = mealType;
     }
 
     protected long getId() {

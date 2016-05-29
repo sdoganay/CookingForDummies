@@ -35,8 +35,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + RecipeItem.COLUMN_NAME_ITEM + " TEXT,"
                 + RecipeItem.COLUMN_NAME_CAL + " INTEGER,"
                 + RecipeItem.COLUMN_NAME_CATEGORY + " INTEGER,"
-                + RecipeItem.ITEM_IMAGE + " BLOB "
-                + RecipeItem.COLUMN_DIRECTIONS+ "String" + ");");
+                +RecipeItem.COLUMN_MEAL_TYPE + "STRING,"
+                //şimdilik image yok
+                //+ RecipeItem.ITEM_IMAGE + " BLOB "
+                + RecipeItem.COLUMN_DIRECTIONS+ "STRING," + ");");
     }
 
     @Override
@@ -51,7 +53,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(RecipeItem.COLUMN_NAME_ITEM, recipeItem.getName());
         values.put(RecipeItem.COLUMN_NAME_CAL, recipeItem.getCal());
-        //category olacak mı??
         //values.put(RecipeItem.COLUMN_NAME_CATEGORY, foodItems.getCategory());
         //image ı sadece byte şeklinde depolayabiliriz o yüzden URL olmaması lazım database için
         //values.put(RecipeItem.ITEM_IMAGE,recipeItem.getRecipeImageURL());
