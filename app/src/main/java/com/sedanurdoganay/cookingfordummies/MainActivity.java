@@ -99,11 +99,6 @@ public class MainActivity extends AppCompatActivity {
     }*/
 }
 
-
-/**
- * Created by sedanurdoganay on 28/05/16.
- */
-
 class RecipeTypeGetter extends AsyncTask<String, Void, ArrayList<String>> {
 
     private static final String ConsumerKey = "a01009a644334ed4a59778ca8c6ae346";
@@ -117,7 +112,6 @@ class RecipeTypeGetter extends AsyncTask<String, Void, ArrayList<String>> {
         ArrayList<String> typeResults = null;
 
         try {
-            //lets search
             JSONObject search = api.getRecipeTypes();
             Log.d("SearchTypes:",search.toString());
             JSONObject searchResults = search.getJSONObject("result").getJSONObject("recipe_types");
@@ -127,20 +121,6 @@ class RecipeTypeGetter extends AsyncTask<String, Void, ArrayList<String>> {
                 String type = (String) types.get(i);
                 typeResults.add(type);
             }
-            /*
-            JSONObject searchResults = search.getJSONObject("result").getJSONObject("recipes");
-            JSONArray recipes = searchResults.getJSONArray("recipe");
-            recipeResults = new ArrayList<SearchItem>();
-            for(int i=0;i< recipes.length();i++){
-                JSONObject recipe = (JSONObject) recipes.get(i);
-                SearchItem item = new SearchItem();
-                item.setDescription(recipe.getString("recipe_description"));
-                item.setId(recipe.getLong("recipe_id"));
-                item.setImageURL(new URL(recipe.getString("recipe_image")));
-                item.setName(recipe.getString("recipe_name"));
-                recipeResults.add(item);
-            }
-            */
 
         } catch (Exception e) {
             e.printStackTrace();

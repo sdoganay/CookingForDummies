@@ -38,6 +38,7 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
     public enum Category {
         FAVORITE, SEARCH, CALORIE
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
