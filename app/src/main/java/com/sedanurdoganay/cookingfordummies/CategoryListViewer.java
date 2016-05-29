@@ -10,12 +10,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryListViewer extends AppCompatActivity implements OnItemClickListener, AdapterView.OnItemLongClickListener {
     public static final String KEY_CATEGORY = "com.sedanurdoganay.categorylistviewer.category";
     private CategoryListAdapter adapter;
-    private List<SearchItem> data;
+    private List<SearchItem> data = new ArrayList<SearchItem>();
     private DatabaseHandler dbHandler;
     private Category category;
     private TextView totalCal;
@@ -26,7 +27,7 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.item_list);
+        setContentView(R.layout.activity_recipe_list);
         category = getContainer();
 
         ListView list = (ListView) findViewById(R.id.listView);
@@ -48,6 +49,11 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
             case CALORIE:
                 setTitle("CALORIE INTAKE");
                 // data almayı buraya ekle
+                SearchItem item1 = new SearchItem();
+                item1.setName("Seda");
+                item1.setCal(253);
+                item1.setDescription("cok guzel bi kiz");
+                data.add(item1);
                 //şu an datayı alamadığımız için inflater çalışmıyor.
                 list.addHeaderView(LayoutInflater.from(this).inflate(R.layout.header_total, list, false), null, false);
                 totalCal = (TextView)findViewById(R.id.totalCal);
