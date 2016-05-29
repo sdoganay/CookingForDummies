@@ -76,7 +76,7 @@ public class RecipeItem implements BaseColumns{
         return mealType;
     }
 
-    protected void setIdInApi(String mealType) {
+    protected void setMealType(String mealType) {
         this.mealType = mealType;
     }
 

@@ -14,11 +14,11 @@ import java.util.ArrayList;
  * Created by sedanurdoganay on 28/05/16.
  */
 
-
 class RecipeSearcher extends AsyncTask<String, Void, ArrayList<SearchItem>> {
 
 
     private CategoryListViewer viewer;
+
     public RecipeSearcher(CategoryListViewer viewer){
         this.viewer=viewer;
     }
@@ -26,6 +26,7 @@ class RecipeSearcher extends AsyncTask<String, Void, ArrayList<SearchItem>> {
 
     private static final String ConsumerKey = "a01009a644334ed4a59778ca8c6ae346";
     private static final String ConsumerSecret = "9c7caefe189441f387c0213c25a6a0d7";
+
 
     @Override
     protected ArrayList<SearchItem> doInBackground(String... keywords) {
