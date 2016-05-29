@@ -6,11 +6,6 @@
               android:orientation="horizontal"
               tools:ignore = "UseCompoundDrawables">
 
-    <WebView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:id="@+id/recipe_image_view" />
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -34,6 +29,12 @@
             android:padding="8dp"
             android:textIsSelectable="false"
             android:textSize="24sp"/>
+
     </LinearLayout>
+
+    <WebView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/recipe_image_view" />
 
 </LinearLayout>

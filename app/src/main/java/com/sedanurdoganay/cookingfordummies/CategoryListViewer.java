@@ -69,7 +69,7 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
 
         //TODO datayı adapter'a veriyor.
         adapter = new CategoryListAdapter(data, this);
-        list.setEmptyView(findViewById(R.id.empty));
+        list.setEmptyView(findViewById(R.id.textView));
         list.setAdapter(adapter);
         registerForContextMenu(list);
     }
