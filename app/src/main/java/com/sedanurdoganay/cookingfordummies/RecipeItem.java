@@ -1,5 +1,6 @@
 package com.sedanurdoganay.cookingfordummies;
 
+import android.graphics.Bitmap;
 import android.provider.BaseColumns;
 
 import java.net.URL;
@@ -19,26 +20,25 @@ recipe_image – URL of this recipe item's default image, only if this is availa
 public class RecipeItem implements BaseColumns{
 
     public static final String TABLE_NAME = "cooking_for_dummies_data";
-    public static final String ID_FOR_API = "id_for_api";
+    public static final String COLUMN_NAME_ID_FOR_API = "id_for_api";
     public static final String COLUMN_NAME_ITEM = "item";
     public static final String COLUMN_NAME_CAL = "cal";
     public static final String COLUMN_NAME_CATEGORY = "category";
-    public static final String COLUMN_MEAL_TYPE = " meal type";
-
-    // image şimdilik kullanmayacağız
-    //public static final String ITEM_IMAGE = "image";
-
-    public static final String COLUMN_DIRECTIONS = "directions";
+    public static final String COLUMN_NAME_MEAL_TYPE = "meal_type";
+    public static final String COLUMN_NAME_DESCRIPTION = "description";
+    public static final String COLUMN_NAME_ITEM_IMAGE = "image";
+    public static final String COLUMN_NAME_DIRECTIONS = "directions";
 
     private long id;
     private String name;
-    private URL recipeURL;
+    private String recipeURL;
     private String description;
-    private URL recipeImageURL;
+    private String recipeImageURL;
     private int cal;
     private String[] directions;
     private long idInApi;
     private String mealType;
+    private byte[] image;
 
 
     public RecipeItem(){
@@ -46,7 +46,7 @@ public class RecipeItem implements BaseColumns{
     }
 
     // id ye göre search
-    public RecipeItem(long idInApi, String name, URL recipeURL, String description, URL recipeImageURL,String mealType ){
+    public RecipeItem(long idInApi, String name, String recipeURL, String description, String recipeImageURL,String mealType ){
         mealType = this.mealType;
         idInApi=this.idInApi;
         name = this.name;
@@ -64,7 +64,17 @@ public class RecipeItem implements BaseColumns{
         mealType = this.mealType;
     }
 
-
+    //Every param for DB
+    public RecipeItem(long id, long idInApi, String name,int cal, String mealType, String description, byte[] image,String[] directions) {
+        this.id = id;
+        this.name = name;
+        this.image=image;
+        this.description = description;
+        this.cal = cal;
+        this.directions = directions;
+        this.idInApi = idInApi;
+        this.mealType = mealType;
+    }
 
     protected long getIdInApi() {
         return idInApi;
@@ -98,11 +108,11 @@ public class RecipeItem implements BaseColumns{
         this.name = name;
     }
 
-    protected URL getRecipeURL() {
+    protected String getRecipeURL() {
         return recipeURL;
     }
 
-    protected void setRecipeURL(URL recipeURL) {
+    protected void setRecipeURL(String recipeURL) {
         this.recipeURL = recipeURL;
     }
 
@@ -114,11 +124,11 @@ public class RecipeItem implements BaseColumns{
         this.description = description;
     }
 
-    protected URL getRecipeImageURL() {
+    protected String getRecipeImageURL() {
         return recipeImageURL;
     }
 
-    protected void setRecipeImageURL(URL recipeImageURL) {
+    protected void setRecipeImageURL(String recipeImageURL) {
         this.recipeImageURL = recipeImageURL;
     }
 
@@ -137,6 +147,7 @@ public class RecipeItem implements BaseColumns{
     protected void setDirections(String[] directions){
         this.directions = directions;
     }
+
     @Override
     public String toString(){
         StringBuilder builder = new StringBuilder();
@@ -147,10 +158,7 @@ public class RecipeItem implements BaseColumns{
         builder.append(", name=");
         builder.append(name);
         builder.append(", cal=");
-        builder.append(cal);
-        builder.append(", image=");
-        //builder.append(image);
-        //builder.append("]");
+        builder.append(cal+"]");
         return builder.toString();
     }
 }
