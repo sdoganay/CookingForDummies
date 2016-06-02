@@ -31,9 +31,6 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
     private Button searchButton;
     ListView list;
 
-    static ArrayList<String> RECIPE_TYPES;
-
-
     public enum Category {
         FAVORITE, SEARCH, CALORIE
     }

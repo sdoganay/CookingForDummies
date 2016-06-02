@@ -119,9 +119,9 @@ class RecipeTypeGetter extends AsyncTask<String, Void, ArrayList<String>> {
 
     @Override
     protected void onPostExecute(ArrayList<String> result) {
-        CategoryListViewer.RECIPE_TYPES = result;
-        CategoryListViewer.RECIPE_TYPES.add(0,"All");
-        Log.d("postExec","CategoryListViewer.RECIPE_TYPES ="+CategoryListViewer.RECIPE_TYPES );
+        SearchViewer.RECIPE_TYPES = result;
+        SearchViewer.RECIPE_TYPES.add(0,"All");
+        Log.d("postExec","CategoryListViewer.RECIPE_TYPES ="+SearchViewer.RECIPE_TYPES );
     }
 
 }
