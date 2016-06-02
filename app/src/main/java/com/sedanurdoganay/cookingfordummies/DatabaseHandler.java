@@ -14,8 +14,8 @@ import java.util.List;
  * Created by bengisukose on 5/28/16.
  */
 public class DatabaseHandler extends SQLiteOpenHelper {
-    private static final String DB_NAME = "recipeDB_v0";
-    private static final int DB_VERSION = 0;
+    private static final String DB_NAME = "recipeDB_v1";
+    private static final int DB_VERSION = 1;
 
     private static SQLiteDatabase db;
 
@@ -32,13 +32,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Log.d("YourTag", "table oldu");
         db.execSQL("CREATE TABLE " + RecipeItem.TABLE_NAME + " ("
                 + RecipeItem._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + RecipeItem.COLUMN_NAME_ID_FOR_API + " INTEGER"
+                + RecipeItem.COLUMN_NAME_ID_FOR_API + " INTEGER,"
                 + RecipeItem.COLUMN_NAME_ITEM + " TEXT,"
                 + RecipeItem.COLUMN_NAME_CAL + " INTEGER,"
                 + RecipeItem.COLUMN_NAME_CATEGORY + " STRING,"
-                +RecipeItem.COLUMN_NAME_MEAL_TYPE + "STRING,"
-                + RecipeItem.COLUMN_NAME_ITEM_IMAGE + " BLOB "
-                + RecipeItem.COLUMN_NAME_DIRECTIONS + "STRING," + ");");
+                +RecipeItem.COLUMN_NAME_MEAL_TYPE + " STRING,"
+                + RecipeItem.COLUMN_NAME_ITEM_IMAGE + " BLOB,"
+                + RecipeItem.COLUMN_NAME_DIRECTIONS + "STRING" + ");");
     }
 
     @Override

@@ -45,7 +45,7 @@ public class RecipeDisplay extends AppCompatActivity  implements TextToSpeech.On
     Button eatenButton;
 
 
-    DatabaseHandler dbHandler = new DatabaseHandler(this);
+    DatabaseHandler dbHandler;
     //şu an yok
     //Button speakButton;
     ListView list;
@@ -64,6 +64,7 @@ public class RecipeDisplay extends AppCompatActivity  implements TextToSpeech.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_display);
+        dbHandler = new DatabaseHandler(this.getApplicationContext());
         list= (ListView) findViewById(R.id.listView);
         backButton = (Button) findViewById(R.id.back_button);
         backButton.setOnClickListener(new View.OnClickListener() {
