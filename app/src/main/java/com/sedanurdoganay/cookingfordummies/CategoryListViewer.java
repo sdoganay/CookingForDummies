@@ -1,14 +1,11 @@
 package com.sedanurdoganay.cookingfordummies;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -16,13 +13,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class CategoryListViewer extends AppCompatActivity implements OnItemClickListener, AdapterView.OnItemLongClickListener, AdapterView.OnItemSelectedListener {
     public static final String KEY_CATEGORY = "com.sedanurdoganay.categorylistviewer.category";
-    private CategoryListAdapter adapter;
+    private SearchListAdapter adapter;
     private DatabaseHandler dbHandler;
     private Category category;
     private TextView totalCal;
@@ -30,6 +26,7 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
     private EditText searchText;
     private Button searchButton;
     ListView list;
+    private List<RecipeItem> data;
 
     public enum Category {
         FAVORITE, SEARCH, CALORIE
@@ -48,9 +45,9 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
 
         switch (category) {
             case FAVORITE:
-                setTitle("FAVORITE");
+                setTitle("FAVORITE RECIPES");
                 //TODO From database
-                // data = dbHandler.fetchAllItemsIn(0);
+                data = dbHandler.fetchAllItemsIn("FAV");
                 break;
             case CALORIE:
                 setTitle("CALORIE INTAKE");
@@ -58,14 +55,15 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
                 list.addHeaderView(LayoutInflater.from(this).inflate(R.layout.header_total, list, false), null, false);
                 totalCal = (TextView)findViewById(R.id.totalCal);
                 //TODO datayı database'den alacaksın.
-                //data = dbHandler.fetchAllItemsIn(1);
+                data = dbHandler.fetchAllItemsIn("EATEN");
                 break;
         }
-/*
-        adapter = new CategoryListAdapter(data, this);
-        list.setEmptyView(findViewById(R.id.textView));
+
+        //TODO BURADAYIIIIM!
+        //adapter = new SearchListAdapter(data, this);
+        //list.setEmptyView(findViewById(R.id.textView));
         list.setAdapter(adapter);
-        */
+
        // registerForContextMenu(list); //bunu yazmadım searcher'larda.
 
     }

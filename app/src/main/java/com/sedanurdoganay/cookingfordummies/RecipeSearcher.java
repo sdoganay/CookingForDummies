@@ -9,7 +9,6 @@ import com.fatsecret.platform.FatSecretAPI;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -85,7 +84,7 @@ class RecipeSearcher extends AsyncTask<String, Void, ArrayList<SearchItem>> {
 
     @Override
     protected void onPostExecute(ArrayList<SearchItem> result) {
-        CategoryListAdapter adapter = new CategoryListAdapter(result, context);
+        SearchListAdapter adapter = new SearchListAdapter(result, context);
         list.setAdapter(adapter);
 
     }
