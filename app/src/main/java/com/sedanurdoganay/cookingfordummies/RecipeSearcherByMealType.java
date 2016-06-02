@@ -55,7 +55,7 @@ public class RecipeSearcherByMealType extends AsyncTask<String, Void, ArrayList<
                     item.setId(recipe.getLong("recipe_id"));
 
                     //Log.v("recipeImageURL:",recipe.getString("recipe_image"));
-                   // item.setImageURL(new URL(recipe.getString("recipe_image")));
+                    item.setImageURL(recipe.getString("recipe_image"));
 
                     item.setName(recipe.getString("recipe_name"));
                     item.setMealType(keywords[1]);

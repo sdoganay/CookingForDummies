@@ -7,16 +7,16 @@ import java.net.URL;
  */
 public class SearchItem extends RecipeItem{
 
-    private URL imageURL;
+    private String imageURL;
     private String name;
     private long id;
     private String description;
 
-    public URL getImageURL() {
+    public String getImageURL() {
         return imageURL;
     }
 
-    public void setImageURL(URL imageURL) {
+    public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
     }
 
