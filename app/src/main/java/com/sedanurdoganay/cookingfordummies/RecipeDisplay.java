@@ -3,6 +3,7 @@ package com.sedanurdoganay.cookingfordummies;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
@@ -23,6 +24,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fatsecret.platform.FatSecretAPI;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -38,6 +44,8 @@ public class RecipeDisplay extends AppCompatActivity  implements TextToSpeech.On
     Button favButton;
     Button eatenButton;
 
+
+    DatabaseHandler dbHandler = new DatabaseHandler(this);
     //şu an yok
     //Button speakButton;
     ListView list;
@@ -92,26 +100,23 @@ public class RecipeDisplay extends AppCompatActivity  implements TextToSpeech.On
         receiveBundle();
         setTitle(ri.getName());
         //Database halledilmesi lazım
-        /*favButton.setOnClickListener(new View.OnClickListener() {
+        favButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Burası gelecek
-                RecipeItem fav = new RecipeItem(ri.getId(),ri.getIdInApi(), ri.getName(), ri.getDescription(), ri.getMealType());
-                //buraya database olayları gelecek
-                //dbHandler.createRecipeItem(fav,"FAV");
+                new FullRecipeGetterForDatabase(dbHandler,"FAV").execute(ri.getIdInApi());
+
             }
-        });*/
+        });
         eatenButton = (Button) findViewById(R.id.eaten_button);
 
         //Database halledilmesi lazım
-       /* eatenButton.setOnClickListener(new View.OnClickListener() {
+       eatenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RecipeItem eaten = new RecipeItem(ri.getId(),ri.getIdInApi(), ri.getName(), ri.getDescription(), ri.getMealType());
-                //Buraya database olayları gelecek
-                //dbHandler.createRecipeItem(eaten,"EATEN");
+                new FullRecipeGetterForDatabase(dbHandler,"EATEN").execute(ri.getIdInApi());
+
             }
-        });*/
+        });
 
         WebView webView = (WebView) findViewById(R.id.webView);
         //artık web sayfası koymayacağız
@@ -283,6 +288,78 @@ class RecipeListAdapter extends BaseAdapter {
         private TextView directionView;
 
     }
+}
+
+class FullRecipeGetterForDatabase extends AsyncTask<Long, Void, RecipeItem> {
+
+    private static final String ConsumerKey = "a01009a644334ed4a59778ca8c6ae346";
+    private static final String ConsumerSecret = "9c7caefe189441f387c0213c25a6a0d7";
+
+    private DatabaseHandler dbHandler;
+    private String cat;
+    public FullRecipeGetterForDatabase(DatabaseHandler dbHandler, String cat){
+        this.dbHandler = dbHandler;
+        this.cat = cat;
+    }
+
+    @Override
+    protected RecipeItem doInBackground(Long... IDs) {
+        FatSecretAPI api = new FatSecretAPI(ConsumerKey, ConsumerSecret);
+
+        RecipeItem item = null;
+        try {
+            JSONObject result = api.getRecipe(IDs[0]).getJSONObject("result");
+            JSONObject recipe = result.getJSONObject("recipe");
+
+            item = JSON2RecipeItem(recipe);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return item;
+    }
+
+    private RecipeItem JSON2RecipeItem(JSONObject recipe) {
+        RecipeItem item = new RecipeItem();
+        try {
+            item.setId(recipe.getLong("recipe_id"));
+            item.setDescription(recipe.getString("recipe_description"));
+            item.setName(recipe.getString("recipe_name"));
+            item.setRecipeImageURL(recipe.getJSONObject("recipe_images").getString("recipe_image"));
+            item.setRecipeURL(recipe.getString("recipe_url"));
+            item.setCal(recipe.getJSONObject("serving_sizes").getJSONObject("serving").getInt("calories"));
+            item.setDirections(getDirectionsFromJSON(recipe));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return item;
+    }
+
+
+    private String[] getDirectionsFromJSON(JSONObject recipe) {
+        String[] directionsArray = null;
+        try {
+            JSONArray directions = recipe.getJSONObject("directions").getJSONArray("direction");
+            directionsArray = new String[directions.length()];
+            for (int i = 0; i < directions.length(); i++) {
+                JSONObject direction = (JSONObject) directions.get(i);
+                directionsArray[direction.getInt("direction_number") - 1] = direction.getString("direction_description");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return directionsArray;
+    }
+
+    @Override
+    protected void onPostExecute(RecipeItem result) {
+
+        //buraya database olayları gelecek
+        dbHandler.createRecipeItem(result,cat);
+    }
+
 }
 
 
