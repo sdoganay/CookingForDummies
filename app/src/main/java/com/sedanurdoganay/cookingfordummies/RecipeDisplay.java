@@ -50,13 +50,43 @@ public class RecipeDisplay extends AppCompatActivity  implements TextToSpeech.On
     RecipeItem ri;
     private final int REQ_CODE_SPEECH_INPUT = 100;
 
+    int current=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_display);
         list= (ListView) findViewById(R.id.listView);
         backButton = (Button) findViewById(R.id.back_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String[] dirs = ri.getDirections();
+                current--;
+                if(current<dirs.length & current>-1) {
+                    text = dirs[current];
+                }else{
+                    text="Enjoy your meal!";
+                }
+                speakOut();
+                //promptSpeechInput();
+            }
+        });
         nextButton = (Button) findViewById(R.id.next_button);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String[] dirs = ri.getDirections();
+                current++;
+                if(current<dirs.length & current>-1) {
+                    text = dirs[current];
+                }else{
+                    text="Enjoy your meal!";
+                }
+                speakOut();
+                //promptSpeechInput();
+            }
+        });
         favButton = (Button) findViewById(R.id.fav_button);
 
         receiveBundle();
@@ -93,7 +123,14 @@ public class RecipeDisplay extends AppCompatActivity  implements TextToSpeech.On
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String[] dirs = ri.getDirections();
+                if(current<dirs.length & current>-1) {
+                    text = dirs[current];
+                }else{
+                    text="Enjoy your meal!";
+                }
                 speakOut();
+                //promptSpeechInput();
             }
         });
         //şu an yok
@@ -106,7 +143,7 @@ public class RecipeDisplay extends AppCompatActivity  implements TextToSpeech.On
         });*/
         tts = new TextToSpeech(this,this);
         //deneme için
-        text ="hello everyone, what is going on?";
+        //text ="hello everyone, what is going on?";
 
         RecipeListAdapter adapter = new RecipeListAdapter(Arrays.asList(ri.getDirections()), this);
         list.setAdapter(adapter);
@@ -143,7 +180,7 @@ public class RecipeDisplay extends AppCompatActivity  implements TextToSpeech.On
                 Log.e("TTS", "This Language is not supported");
             } else {
                 playButton.setEnabled(true);
-                speakOut();
+                //speakOut();
             }
 
         } else {
