@@ -1,9 +1,8 @@
 package com.sedanurdoganay.cookingfordummies;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
-import android.text.Editable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,13 +23,13 @@ import java.util.List;
 public class CategoryListViewer extends AppCompatActivity implements OnItemClickListener, AdapterView.OnItemLongClickListener, AdapterView.OnItemSelectedListener {
     public static final String KEY_CATEGORY = "com.sedanurdoganay.categorylistviewer.category";
     private CategoryListAdapter adapter;
-    private List<SearchItem> data= new ArrayList<SearchItem>() ;
     private DatabaseHandler dbHandler;
     private Category category;
     private TextView totalCal;
     private Spinner spinner;
     private EditText searchText;
     private Button searchButton;
+    ListView list;
 
     static ArrayList<String> RECIPE_TYPES;
 
@@ -45,9 +44,10 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
         setContentView(R.layout.item_list);
         category = getContainer();
 
-        ListView list = (ListView) findViewById(R.id.listView);
+       list = (ListView) findViewById(R.id.listView);
         list.setOnItemClickListener(this);
         list.setOnItemLongClickListener(this);
+        list.setEmptyView(findViewById(R.id.textView));
 
         switch (category) {
             case FAVORITE:
@@ -62,15 +62,15 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
                 item1.setDescription("cok guzel bi kiz");
                 data.add(item1);*/
                 //Log.v("data adı: " ,data.get(0).getName().toString());
-                if(data.size()==0){
+                /*if(data.size()==0){
                     SearchItem item1 = new SearchItem();
                     item1.setName("null");
-                    item1.setCal(253);
-                    item1.setDescription("cok guzel bi kiz");
+                    item1.setCal(0);
+                    item1.setDescription("null");
                     data.add(item1);
 
-                }
-                list.addHeaderView(LayoutInflater.from(this).inflate(R.layout.header, list, false), null, false);
+                }*/
+                list.addHeaderView(LayoutInflater.from(this).inflate(R.layout.header_search, list, false), null, false);
 
                 searchText = (EditText) findViewById(R.id.keywordView);
                 searchButton = (Button) findViewById( R.id.button);
@@ -79,16 +79,16 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
                 // Spinner click listener
                 spinner.setOnItemSelectedListener(this);
                 List<String> categories = RECIPE_TYPES;
-                categories.add("All");
+                categories.add(0,"All");
 
                 // Creating adapter for spinner
-                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
+                ArrayAdapter<String> recipeTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
 
                 // Drop down layout style - list view with radio button
-                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                recipeTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                 // attaching data adapter to spinner
-                spinner.setAdapter(dataAdapter);
+                spinner.setAdapter(recipeTypeAdapter);
                 //RecipeSearcher searcher = new RecipeSearcher(this);
                 //searcher.execute();
                 //data = dbHandler.fetchAllItemsIn(1);
@@ -97,39 +97,33 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
                     @Override
                     public void onClick(View v) {
                         text = searchText.getText().toString();
-                        spinner.getSelectedItem();
-                        Log.v("aranacak kelimeler: ", text+spinner);
-
+                        String type = (String) spinner.getSelectedItem();
+                        Log.v("aranacak kelimeler: ", text);
+                        Log.v("type: ",type);
+                        if(type.equals("All")){
+                            new RecipeSearcher(list, getApplicationContext()).execute(text);
+                        }else{
+                            new RecipeSearcherByMealType(list, getApplicationContext()).execute(text,type);
+                        }
                     }
                 });
                 break;
             case CALORIE:
                 setTitle("CALORIE INTAKE");
-                // data almayı buraya ekle
-                Log.v("data adı: " ,data.get(0).getName().toString());
-                if(data.size()==0){
-                    SearchItem item1 = new SearchItem();
-                    item1.setName("null");
-                    item1.setCal(253);
-                    item1.setDescription("cok guzel bi kiz");
-                    data.add(item1);
-                }
 
                 list.addHeaderView(LayoutInflater.from(this).inflate(R.layout.header_total, list, false), null, false);
                 totalCal = (TextView)findViewById(R.id.totalCal);
+                //TODO datayı database'den alacaksın.
                 //data = dbHandler.fetchAllItemsIn(1);
                 break;
         }
-
-        //TODO datayı adapter'a veriyor.
+/*
         adapter = new CategoryListAdapter(data, this);
         list.setEmptyView(findViewById(R.id.textView));
         list.setAdapter(adapter);
-        registerForContextMenu(list);
-    }
+        */
+        registerForContextMenu(list); //bunu yazmadım searcher'larda.
 
-    public void setData(List<SearchItem> data) {
-        this.data = data;
     }
 
 

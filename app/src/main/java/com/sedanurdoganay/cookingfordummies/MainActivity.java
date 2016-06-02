@@ -23,8 +23,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        RecipeTypeGetter task = new RecipeTypeGetter();
-        task.execute();
+        new RecipeTypeGetter().execute(); //Set recipe types from API.
     }
 
     @Override
@@ -88,15 +87,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-     //Buna gerek kalmadı
-    /*public void onRecipeSearchClick(View view){
-        startActivity(new Intent (MainActivity.this, RecipeSearch.class));
-    }*/
-
-    //Bu metoda Gerek kalmadı
-   /* public void onTodaysRecipeClick(View view){
-        startActivity(new Intent (MainActivity.this, RecipeDisplay.class));
-    }*/
 }
 
 class RecipeTypeGetter extends AsyncTask<String, Void, ArrayList<String>> {
@@ -135,6 +125,5 @@ class RecipeTypeGetter extends AsyncTask<String, Void, ArrayList<String>> {
     }
 
 }
-//ends RecipeSearcher
 
 

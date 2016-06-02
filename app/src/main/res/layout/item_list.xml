@@ -13,13 +13,15 @@
 
     <TextView
         android:id="@+id/textView"
-        android:text="empty"
-        android:layout_width="0dp"
+        android:text="EMPTY"
+        android:layout_width="match_parent"
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:gravity="left"
         android:padding="8dp"
         android:textIsSelectable="false"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:visibility="visible"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

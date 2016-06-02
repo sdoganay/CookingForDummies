@@ -1,6 +1,8 @@
 package com.sedanurdoganay.cookingfordummies;
 
+import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.ListView;
 
 import com.fatsecret.platform.FatSecretAPI;
 
@@ -16,12 +18,13 @@ import java.util.ArrayList;
 public class RecipeSearcherByMealType extends AsyncTask<String, Void, ArrayList<SearchItem>> {
 
 
-        private CategoryListViewer viewer;
+    private ListView list;
+    private Context context;
 
-        public RecipeSearcherByMealType(CategoryListViewer viewer){
-            this.viewer=viewer;
+        public RecipeSearcherByMealType(ListView list, Context context){
+            this.list = list;
+            this.context = context;
         }
-
 
         private static final String ConsumerKey = "a01009a644334ed4a59778ca8c6ae346";
         private static final String ConsumerSecret = "9c7caefe189441f387c0213c25a6a0d7";
@@ -82,7 +85,10 @@ public class RecipeSearcherByMealType extends AsyncTask<String, Void, ArrayList<
 
         @Override
         protected void onPostExecute(ArrayList<SearchItem> result) {
-            viewer.setData(result);
+
+            CategoryListAdapter adapter = new CategoryListAdapter(result, context);
+            list.setAdapter(adapter);
+
         }
 
     }
