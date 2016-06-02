@@ -18,7 +18,7 @@ import java.util.List;
 
 public class CategoryListViewer extends AppCompatActivity implements OnItemClickListener, AdapterView.OnItemLongClickListener, AdapterView.OnItemSelectedListener {
     public static final String KEY_CATEGORY = "com.sedanurdoganay.categorylistviewer.category";
-    private SearchListAdapter adapter;
+    private CategoryListAdapter adapter;
     private DatabaseHandler dbHandler;
     private Category category;
     private TextView totalCal;
@@ -46,7 +46,6 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
         switch (category) {
             case FAVORITE:
                 setTitle("FAVORITE RECIPES");
-                //TODO From database
                 data = dbHandler.fetchAllItemsIn("FAV");
                 break;
             case CALORIE:
@@ -54,23 +53,19 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
 
                 list.addHeaderView(LayoutInflater.from(this).inflate(R.layout.header_total, list, false), null, false);
                 totalCal = (TextView)findViewById(R.id.totalCal);
-                //TODO datayı database'den alacaksın.
                 data = dbHandler.fetchAllItemsIn("EATEN");
                 break;
         }
-
-        //TODO BURADAYIIIIM!
-        //adapter = new SearchListAdapter(data, this);
-        //list.setEmptyView(findViewById(R.id.textView));
+        adapter = new CategoryListAdapter(data, this);
         list.setAdapter(adapter);
 
-       // registerForContextMenu(list); //bunu yazmadım searcher'larda.
+       // registerForContextMenu(list); //ne işe yaradığını çözemedim.
 
     }
 
 
     @Override
-    public void onItemClick(AdapterView<?> listView, View view, int position, long id) { //TODO Click display'i açacak.
+    public void onItemClick(AdapterView<?> listView, View view, int position, long id) {
         /*if(category == Category.FAVORITE)
             return;
         SearchItem itemClicked = data.get(position);
@@ -86,8 +81,7 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-       /* //TODO longClick recipe'yi fav'a atsın.
-
+       /*
         if(category == Category.SEARCH)
             position--;
         SearchItem itemClicked = data.get(position);
