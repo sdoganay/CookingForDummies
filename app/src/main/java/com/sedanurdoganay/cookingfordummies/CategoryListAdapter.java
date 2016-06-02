@@ -40,18 +40,19 @@ public class CategoryListAdapter extends BaseAdapter {
         ViewHolder viewHolder;
         View localView = converView;
         if(localView == null){
-            localView = inflater.inflate(R.layout.list_row, parent, false);
+            localView = inflater.inflate(R.layout.categorylist_row, parent, false);
             viewHolder = new ViewHolder();
             viewHolder.nameView = (TextView) localView.findViewById(R.id.recipe_name_view);
             viewHolder.descriptionView = (TextView) localView.findViewById(R.id.recipe_description_view);
-           // viewHolder.imageView = (ImageView) localView.findViewById(R.id.recipe_image_view);
+            viewHolder.imageView = (ImageView) localView.findViewById(R.id.imageView);
             localView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder)localView.getTag();
         }
         viewHolder.nameView.setText(data.get(position).getName());
         viewHolder.descriptionView.setText(data.get(position).getDescription());
-        //viewHolder.imageView.loadUrl(data.get(position).getImageURL());
+        Bitmap imageBitmap = ViewHolder.getBitmap(data.get(position).getImage());
+        viewHolder.imageView.setImageBitmap(imageBitmap);
 
         return localView;
     }
@@ -65,6 +66,10 @@ public class CategoryListAdapter extends BaseAdapter {
     private static class ViewHolder {
         private TextView nameView;
         private TextView descriptionView;
-       // private ImageView imageView;
+        private ImageView imageView;
+
+        public static Bitmap getBitmap(byte[] image) {
+            return BitmapFactory.decodeByteArray(image, 0, image.length);
+        }
     }
 }
