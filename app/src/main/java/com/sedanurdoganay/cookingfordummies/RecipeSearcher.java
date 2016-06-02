@@ -1,7 +1,9 @@
 package com.sedanurdoganay.cookingfordummies;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.view.View;
 import android.widget.ListView;
 
 import com.fatsecret.platform.FatSecretAPI;
@@ -89,6 +91,8 @@ class RecipeSearcher extends AsyncTask<String, Void, ArrayList<SearchItem>> {
         list.setAdapter(adapter);
 
     }
+
+
 
 }
 //ends RecipeSearcher

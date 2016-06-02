@@ -1,8 +1,10 @@
 package com.sedanurdoganay.cookingfordummies;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,21 +42,9 @@ public class SearchViewer extends AppCompatActivity implements OnItemClickListen
         list.setOnItemLongClickListener(this);
         list.setEmptyView(findViewById(R.id.empty));
 
-        setTitle("RECIPE SEARCH");
-                /*item1.setName("Seda");
-                item1.setCal(253);
-                item1.setDescription("cok guzel bi kiz");
-                data.add(item1);*/
-                //Log.v("data adı: " ,data.get(0).getName().toString());
-                /*if(data.size()==0){
-                    SearchItem item1 = new SearchItem();
-                    item1.setName("null");
-                    item1.setCal(0);
-                    item1.setDescription("null");
-                    data.add(item1);
 
-                }*/
-                //list.addHeaderView(LayoutInflater.from(this).inflate(R.layout.header_search, list, false), null, false);
+
+        setTitle("RECIPE SEARCH");
 
                 searchText = (EditText) findViewById(R.id.keywordView);
                 searchButton = (Button) findViewById( R.id.button);
@@ -104,6 +95,9 @@ public class SearchViewer extends AppCompatActivity implements OnItemClickListen
     public void onItemClick(AdapterView<?> listView, View view, int position, long id) { //TODO Click display'i açacak.
         SearchItem itemClicked = ((CategoryListAdapter)list.getAdapter()).getData().get(position);
         Log.d("itemClicked: ",itemClicked.getName());
+        Log.v("click: ", "yaptım");
+        Intent intent2 = new Intent (this, RecipeDisplay.class);
+        startActivity(intent2);
         //new FullRecipeGetter().execute(itemClicked.getId());
         //TODO BURADASIIIIIIN!
        /* FoodItem consumed = new FoodItem(itemClicked.getItemName(), itemClicked.getCalories(), 5);
@@ -147,6 +141,5 @@ public class SearchViewer extends AppCompatActivity implements OnItemClickListen
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
-
 
 }

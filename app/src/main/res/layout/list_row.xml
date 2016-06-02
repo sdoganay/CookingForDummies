@@ -5,12 +5,13 @@
               android:layout_height="match_parent"
               android:orientation="horizontal"
               tools:ignore = "UseCompoundDrawables"
-    android:weightSum="1">
+              android:weightSum="1">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="203dp"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:clickable="false">
 
         <TextView
             android:id="@+id/recipe_name_view"
@@ -22,7 +23,8 @@
             android:textSize="16sp"
             android:autoText="false"
             android:background="@color/background_floating_material_dark"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/colorAccent"
+            android:clickable="false" />
 
         <TextView
             android:id="@+id/recipe_description_view"
@@ -33,13 +35,18 @@
             android:textIsSelectable="false"
             android:textSize="24sp"
             android:background="@color/background_floating_material_dark"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/colorAccent"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
 
     </LinearLayout>
 
     <WebView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recipe_image_view" />
+        android:id="@+id/recipe_image_view"
+        android:scrollIndicators="none"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 
 </LinearLayout>

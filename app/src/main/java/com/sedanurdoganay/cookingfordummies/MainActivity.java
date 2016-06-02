@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         switch (categoryId){
             case 0: // SEARCH
                 Log.d("I am in : ","search");
+                cat = CategoryListViewer.Category.SEARCH;
                 intent = new Intent (MainActivity.this, SearchViewer.class);
                 startActivity(intent);
                 break;

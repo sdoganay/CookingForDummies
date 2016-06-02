@@ -1,39 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context="com.sedanurdoganay.cookingfordummies.RecipeDisplay">
+    tools:context="com.sedanurdoganay.cookingfordummies.RecipeDisplay"
+    android:weightSum="1">
 
-    <TableRow
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="70dp"
+        android:layout_weight="0.78"
+        android:weightSum="1">
 
-        <Space
-            android:layout_width="20px"
-            android:layout_height="100dp" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
-        <Button
-            android:layout_width="wrap_content"
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fav"
+                android:id="@+id/fav_button"
+                android:layout_gravity="center_vertical" />
+
+            <Space
+                android:layout_width="450px"
+                android:layout_height="20px" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Eaten"
+                android:id="@+id/eaten_button" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="1">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="&lt;&lt;"
+                android:id="@+id/back_button"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.38" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PLAY"
+                android:id="@+id/play_button"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.23" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=">>"
+                android:id="@+id/next_button"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.38" />
+
+        </LinearLayout>
+
+        <WebView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="play"
-            android:id="@+id/play_button"
-            android:layout_column="4" />
+            android:id="@+id/webView" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Speak"
-            android:id="@+id/speak_button"
-            android:layout_column="6" />
-    </TableRow>
+    </LinearLayout>
 
-    <WebView
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/webView"
-        android:layout_gravity="center" />
+        android:layout_height="388dp">
 
-</TableLayout>
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="371dp"
+            android:id="@+id/listView" />
+
+    </LinearLayout>
+
+</LinearLayout>
