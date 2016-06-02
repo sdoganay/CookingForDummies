@@ -47,6 +47,7 @@
         android:id="@+id/recipe_image_view"
         android:scrollIndicators="none"
         android:focusable="false"
-        android:focusableInTouchMode="false"/>
+        android:focusableInTouchMode="false"
+        android:nestedScrollingEnabled="false" />
 
 </LinearLayout>

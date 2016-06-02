@@ -88,25 +88,16 @@ public class SearchViewer extends AppCompatActivity implements OnItemClickListen
     }
 
 
-    @Override
-    public void onItemClick(AdapterView<?> listView, View view, int position, long id) { //TODO Click display'i açacak.
+    @Override //Single click will open the display view.
+    public void onItemClick(AdapterView<?> listView, View view, int position, long id) {
         SearchItem itemClicked = ((SearchListAdapter)list.getAdapter()).getData().get(position);
         Log.d("itemClicked: ",itemClicked.getName());
-        Log.v("click: ", "yaptım");
-        Intent intent2 = new Intent (this, RecipeDisplay.class);
-        startActivity(intent2);
-        //new FullRecipeGetter().execute(itemClicked.getId());
-        //TODO BURADASIIIIIIN!
-       /* FoodItem consumed = new FoodItem(itemClicked.getItemName(), itemClicked.getCalories(), 5);
-        dbHandler.createFoodItems(consumed);
 
-        if(consumed.getId() == -1)
-            Toast.makeText(this, "Item is not added!", Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(this, "Item added successfully!", Toast.LENGTH_SHORT).show();*/
+        new FullRecipeGetter(this).execute(itemClicked.getId());
+
     }
 
-    @Override
+    @Override //Long click will store the recipe as favorite.
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
        /* //TODO longClick recipe'yi fav'a atsın.

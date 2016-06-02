@@ -1,6 +1,8 @@
 package com.sedanurdoganay.cookingfordummies;
 
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 
 import com.fatsecret.platform.FatSecretAPI;
 
@@ -9,6 +11,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by sedanurdoganay on 28/05/16.
@@ -20,6 +24,11 @@ class FullRecipeGetter extends AsyncTask<Long, Void, RecipeItem> {
 
     private static final String ConsumerKey = "a01009a644334ed4a59778ca8c6ae346";
     private static final String ConsumerSecret = "9c7caefe189441f387c0213c25a6a0d7";
+
+    private SearchViewer viewer;
+    public FullRecipeGetter(SearchViewer viewer){
+        this.viewer = viewer;
+    }
 
     @Override
     protected RecipeItem doInBackground(Long... IDs) {
@@ -74,7 +83,13 @@ class FullRecipeGetter extends AsyncTask<Long, Void, RecipeItem> {
 
     @Override
     protected void onPostExecute(RecipeItem result) {
-        //TODO
+        Intent intent2 = new Intent(viewer, RecipeDisplay.class);
+        Bundle mBundle = new Bundle();
+        mBundle.putString("imageURL", result.getRecipeImageURL());
+        mBundle.putString("name", result.getName());
+        mBundle.putStringArrayList("directions", new ArrayList<String>(Arrays.asList(result.getDirections())));
+        intent2.putExtras(mBundle);
+        viewer.startActivity(intent2);
     }
 
 }
