@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
@@ -59,10 +60,7 @@ public class MainActivity extends AppCompatActivity {
         Log.v("cat pressed: ", categoryId +"");
         switch (categoryId){
             case 0: // SEARCH
-                cat = CategoryListViewer.Category.SEARCH;
-                Log.v("cat name: ", cat.toString());
-                intent=new Intent (MainActivity.this, CategoryListViewer.class);
-                intent.putExtra(CategoryListViewer.KEY_CATEGORY, cat);
+                intent = new Intent (MainActivity.this, SearchViewer.class);
                 startActivity(intent);
                 break;
             case 1: // TODAYS RECİPE
@@ -121,6 +119,7 @@ class RecipeTypeGetter extends AsyncTask<String, Void, ArrayList<String>> {
     @Override
     protected void onPostExecute(ArrayList<String> result) {
         CategoryListViewer.RECIPE_TYPES = result;
+        CategoryListViewer.RECIPE_TYPES.add(0,"All");
         Log.d("postExec","CategoryListViewer.RECIPE_TYPES ="+CategoryListViewer.RECIPE_TYPES );
     }
 

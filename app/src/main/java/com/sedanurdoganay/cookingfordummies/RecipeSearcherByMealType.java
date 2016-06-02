@@ -2,6 +2,7 @@ package com.sedanurdoganay.cookingfordummies;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ListView;
 
 import com.fatsecret.platform.FatSecretAPI;
@@ -46,9 +47,16 @@ public class RecipeSearcherByMealType extends AsyncTask<String, Void, ArrayList<
                 for(int i=0;i< recipes.length();i++){
                     JSONObject recipe = (JSONObject) recipes.get(i);
                     SearchItem item = new SearchItem();
+                    Log.v("# of recipe:",String.valueOf(i));
+                    Log.v("recipe_description:",recipe.getString("recipe_description"));
                     item.setDescription(recipe.getString("recipe_description"));
+
+                    Log.v("recipe_id:",String.valueOf(recipe.getLong("recipe_id")));
                     item.setId(recipe.getLong("recipe_id"));
-                    item.setImageURL(new URL(recipe.getString("recipe_image")));
+
+                    //Log.v("recipeImageURL:",recipe.getString("recipe_image"));
+                   // item.setImageURL(new URL(recipe.getString("recipe_image")));
+
                     item.setName(recipe.getString("recipe_name"));
                     item.setMealType(keywords[1]);
                     recipeResults.add(item);

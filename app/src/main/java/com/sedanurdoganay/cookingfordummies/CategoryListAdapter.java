@@ -25,6 +25,10 @@ public class CategoryListAdapter extends BaseAdapter {
     @Override
     public int getCount(){ return data.size(); }
 
+    protected List<SearchItem> getData(){
+        return data;
+    }
+
     @Override
     public Object getItem(int position){ return data.get(position); }
 
@@ -61,6 +65,6 @@ public class CategoryListAdapter extends BaseAdapter {
     private static class ViewHolder {
         private TextView nameView;
         private TextView descriptionView;
-        private WebView imageView;
+        //private WebView imageView;
     }
 }

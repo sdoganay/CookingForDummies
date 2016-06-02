@@ -49,7 +49,7 @@ class RecipeSearcher extends AsyncTask<String, Void, ArrayList<SearchItem>> {
                 SearchItem item = new SearchItem();
                 item.setDescription(recipe.getString("recipe_description"));
                 item.setId(recipe.getLong("recipe_id"));
-                item.setImageURL(new URL(recipe.getString("recipe_image")));
+//                item.setImageURL(new URL(recipe.getString("recipe_image")));
                 item.setName(recipe.getString("recipe_name"));
                 recipeResults.add(item);
             }
