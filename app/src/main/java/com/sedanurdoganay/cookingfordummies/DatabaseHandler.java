@@ -48,7 +48,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     public static void createRecipeItem(RecipeItem recipeItem,String category) {
-        Log.d("createFoodItem: ", "creating icindeyim");
+        Log.d("createRecipeItem: ", "creating icindeyim");
         ContentValues values = new ContentValues();
         values.put(RecipeItem.COLUMN_NAME_ID_FOR_API, recipeItem.getIdInApi());
         values.put(RecipeItem.COLUMN_NAME_ITEM, recipeItem.getName());

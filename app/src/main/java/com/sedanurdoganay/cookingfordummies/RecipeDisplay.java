@@ -44,6 +44,7 @@ public class RecipeDisplay extends AppCompatActivity  implements TextToSpeech.On
     TextToSpeech tts;
     int status;
     Text textspeechinput;
+    RecipeItem ri;
     private final int REQ_CODE_SPEECH_INPUT = 100;
 
     @Override
@@ -53,7 +54,29 @@ public class RecipeDisplay extends AppCompatActivity  implements TextToSpeech.On
         backButton = (Button) findViewById(R.id.back_button);
         nextButton = (Button) findViewById(R.id.next_button);
         favButton = (Button) findViewById(R.id.fav_button);
+
+        //Database halledilmesi lazım
+        /*favButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Burası gelecek
+                RecipeItem fav = new RecipeItem(ri.getId(),ri.getIdInApi(), ri.getName(), ri.getDescription(), ri.getMealType());
+                //buraya database olayları gelecek
+                //dbHandler.createRecipeItem(fav,"FAV");
+            }
+        });*/
         eatenButton = (Button) findViewById(R.id.eaten_button);
+
+        //Database halledilmesi lazım
+       /* eatenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RecipeItem eaten = new RecipeItem(ri.getId(),ri.getIdInApi(), ri.getName(), ri.getDescription(), ri.getMealType());
+                //Buraya database olayları gelecek
+                //dbHandler.createRecipeItem(eaten,"EATEN");
+            }
+        });*/
+
         WebView webView = (WebView) findViewById(R.id.webView);
         //artık web sayfası koymayacağız
         //webView.setWebViewClient(new MyWebViewClient());
