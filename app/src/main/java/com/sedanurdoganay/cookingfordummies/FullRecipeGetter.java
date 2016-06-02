@@ -88,6 +88,7 @@ class FullRecipeGetter extends AsyncTask<Long, Void, RecipeItem> {
         mBundle.putString("imageURL", result.getRecipeImageURL());
         mBundle.putString("name", result.getName());
         mBundle.putStringArrayList("directions", new ArrayList<String>(Arrays.asList(result.getDirections())));
+        mBundle.putLong("id_in_api",result.getIdInApi());
         intent2.putExtras(mBundle);
         viewer.startActivity(intent2);
     }

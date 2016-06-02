@@ -19,12 +19,14 @@ import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -38,6 +40,7 @@ public class RecipeDisplay extends AppCompatActivity  implements TextToSpeech.On
 
     //şu an yok
     //Button speakButton;
+    ListView list;
     String text;
     Speech textToSpeech;
     Context con;
@@ -51,10 +54,13 @@ public class RecipeDisplay extends AppCompatActivity  implements TextToSpeech.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_display);
+        list= (ListView) findViewById(R.id.listView);
         backButton = (Button) findViewById(R.id.back_button);
         nextButton = (Button) findViewById(R.id.next_button);
         favButton = (Button) findViewById(R.id.fav_button);
 
+        receiveBundle();
+        setTitle(ri.getName());
         //Database halledilmesi lazım
         /*favButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,8 +108,31 @@ public class RecipeDisplay extends AppCompatActivity  implements TextToSpeech.On
         //deneme için
         text ="hello everyone, what is going on?";
 
+        RecipeListAdapter adapter = new RecipeListAdapter(Arrays.asList(ri.getDirections()), this);
+        list.setAdapter(adapter);
+
     }
-   @Override
+
+    private void receiveBundle() {
+        Bundle mBundle = getIntent().getExtras();
+        String imageURL = mBundle.getString("imageURL");
+        String name = mBundle.getString("name");
+        ArrayList<String> directions = mBundle.getStringArrayList("directions");
+        long id = mBundle.getLong("id_in_api");
+
+        Log.d("itemName",name);
+        Log.d("imageURL",imageURL);
+        Log.d("id_in_api",String.valueOf(id));
+
+        RecipeItem item = new RecipeItem();
+        item.setIdInApi(id);
+        item.setName(name);
+        item.setRecipeImageURL(imageURL);
+        item.setDirections(directions.toArray(new String[directions.size()]));
+        ri=item;
+    }
+
+    @Override
     public void onInit(int status) {
         if (status == TextToSpeech.SUCCESS) {
 
@@ -170,17 +199,17 @@ public class RecipeDisplay extends AppCompatActivity  implements TextToSpeech.On
 
 }
 class RecipeListAdapter extends BaseAdapter {
-    private List<SearchItem> data;
+    private List<String> data;
     private LayoutInflater inflater;
 
-    public RecipeListAdapter(List<SearchItem> data, Context conteext){
+    public RecipeListAdapter(List<String> data, Context conteext){
         this.data = data;
         inflater = LayoutInflater.from(conteext);
     }
     @Override
     public int getCount(){ return data.size(); }
 
-    protected List<SearchItem> getData(){
+    protected List<String> getData(){
         return data;
     }
 
@@ -202,7 +231,7 @@ class RecipeListAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder)localView.getTag();
         }
-        viewHolder.directionView.setText(data.get(position).getName());
+        viewHolder.directionView.setText(position+". "+data.get(position));
 
         return localView;
     }
