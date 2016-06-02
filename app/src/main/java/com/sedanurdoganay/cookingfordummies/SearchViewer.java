@@ -39,7 +39,7 @@ public class SearchViewer extends AppCompatActivity implements OnItemClickListen
         list.setOnItemLongClickListener(this);
         list.setEmptyView(findViewById(R.id.empty));
 
-                setTitle("RECIPE SEARCH");
+        setTitle("RECIPE SEARCH");
                 /*item1.setName("Seda");
                 item1.setCal(253);
                 item1.setDescription("cok guzel bi kiz");
@@ -61,10 +61,9 @@ public class SearchViewer extends AppCompatActivity implements OnItemClickListen
                 final Spinner spinner = (Spinner) findViewById(R.id.spinner);
                 // Spinner click listener
                 spinner.setOnItemSelectedListener(this);
-                List<String> categories = RECIPE_TYPES;
 
                 // Creating adapter for spinner
-                ArrayAdapter<String> recipeTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
+                ArrayAdapter<String> recipeTypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, RECIPE_TYPES);
 
                 // Drop down layout style - list view with radio button
                 recipeTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

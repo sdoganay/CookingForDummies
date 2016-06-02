@@ -22,9 +22,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        new RecipeTypeGetter().execute(); //Set recipe types from API.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new RecipeTypeGetter().execute(); //Set recipe types from API.
     }
 
     @Override
@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         Log.v("cat pressed: ", categoryId +"");
         switch (categoryId){
             case 0: // SEARCH
+                Log.d("I am in : ","search");
                 intent = new Intent (MainActivity.this, SearchViewer.class);
                 startActivity(intent);
                 break;

@@ -41,7 +41,7 @@ public class CategoryListViewer extends AppCompatActivity implements OnItemClick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.header_search);
+        setContentView(R.layout.item_list);
         category = getContainer();
 
        list = (ListView) findViewById(R.id.list);
