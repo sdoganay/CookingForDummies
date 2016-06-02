@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Layout;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -16,11 +15,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class SearchViewer extends AppCompatActivity implements OnItemClickListener, AdapterView.OnItemLongClickListener, AdapterView.OnItemSelectedListener {
@@ -82,7 +79,7 @@ public class SearchViewer extends AppCompatActivity implements OnItemClickListen
 
 
 /*
-        adapter = new CategoryListAdapter(data, this);
+        adapter = new SearchListAdapter(data, this);
         list.setEmptyView(findViewById(R.id.textView));
         list.setAdapter(adapter);
         */
@@ -93,7 +90,7 @@ public class SearchViewer extends AppCompatActivity implements OnItemClickListen
 
     @Override
     public void onItemClick(AdapterView<?> listView, View view, int position, long id) { //TODO Click display'i açacak.
-        SearchItem itemClicked = ((CategoryListAdapter)list.getAdapter()).getData().get(position);
+        SearchItem itemClicked = ((SearchListAdapter)list.getAdapter()).getData().get(position);
         Log.d("itemClicked: ",itemClicked.getName());
         Log.v("click: ", "yaptım");
         Intent intent2 = new Intent (this, RecipeDisplay.class);

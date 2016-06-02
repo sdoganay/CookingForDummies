@@ -14,16 +14,17 @@ import java.util.List;
  * Created by bengisukose on 5/28/16.
  */
 public class DatabaseHandler extends SQLiteOpenHelper {
-    private static final String DB_NAME = "deneme";
-    private static final int DB_VERSION = 1;
+    private static final String DB_NAME = "recipeDB_v0";
+    private static final int DB_VERSION = 0;
 
     private static SQLiteDatabase db;
+
 
     public DatabaseHandler(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
         db = getWritableDatabase();
-        if (isDatabaseEmpty())
-            initializeDatabase();
+        //if (isDatabaseEmpty())
+          //  initializeDatabase();
     }
 
     @Override
@@ -31,14 +32,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Log.d("YourTag", "table oldu");
         db.execSQL("CREATE TABLE " + RecipeItem.TABLE_NAME + " ("
                 + RecipeItem._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + RecipeItem.ID_FOR_API + " INTEGER"
+                + RecipeItem.COLUMN_NAME_ID_FOR_API + " INTEGER"
                 + RecipeItem.COLUMN_NAME_ITEM + " TEXT,"
                 + RecipeItem.COLUMN_NAME_CAL + " INTEGER,"
-                + RecipeItem.COLUMN_NAME_CATEGORY + " INTEGER,"
-                +RecipeItem.COLUMN_MEAL_TYPE + "STRING,"
-                //şimdilik image yok
-                //+ RecipeItem.ITEM_IMAGE + " BLOB "
-                + RecipeItem.COLUMN_DIRECTIONS+ "STRING," + ");");
+                + RecipeItem.COLUMN_NAME_CATEGORY + " STRING,"
+                +RecipeItem.COLUMN_NAME_MEAL_TYPE + "STRING,"
+                + RecipeItem.COLUMN_NAME_ITEM_IMAGE + " BLOB "
+                + RecipeItem.COLUMN_NAME_DIRECTIONS + "STRING," + ");");
     }
 
     @Override
@@ -47,32 +47,47 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public static void createFoodItems(RecipeItem recipeItem) {
+    public static void createRecipeItem(RecipeItem recipeItem,String category) {
         Log.d("createFoodItem: ", "creating icindeyim");
-        //TODO: if exists ignore
         ContentValues values = new ContentValues();
+        values.put(RecipeItem.COLUMN_NAME_ID_FOR_API, recipeItem.getIdInApi());
         values.put(RecipeItem.COLUMN_NAME_ITEM, recipeItem.getName());
         values.put(RecipeItem.COLUMN_NAME_CAL, recipeItem.getCal());
-        //values.put(RecipeItem.COLUMN_NAME_CATEGORY, foodItems.getCategory());
+        values.put(RecipeItem.COLUMN_NAME_CATEGORY, category); //FAV or EATEN
+        values.put(RecipeItem.COLUMN_NAME_MEAL_TYPE, recipeItem.getMealType());
+
         //image ı sadece byte şeklinde depolayabiliriz o yüzden URL olmaması lazım database için
-        //values.put(RecipeItem.ITEM_IMAGE,recipeItem.getRecipeImageURL());
+        //values.put(RecipeItem.COLUMN_NAME_ITEM_IMAGE,recipeItem.getRecipeImageURL());
+        values.put(RecipeItem.COLUMN_NAME_ITEM_IMAGE,getBLOBFromURL(recipeItem.getRecipeImageURL()));
+
+        values.put(RecipeItem.COLUMN_NAME_DIRECTIONS, getStringFromArray(recipeItem.getDirections()));
 
         Log.d("created: ", recipeItem.getName().toString());
         recipeItem.setId(db.insert(recipeItem.TABLE_NAME, null, values));
         Log.d("created: ", "insert basarili");
     }
 
-    public boolean deleteFoodItem(long itemId) {
-        return db.delete(RecipeItem.TABLE_NAME, RecipeItem._ID + "=?",
+    private static String getStringFromArray(String[] directions) {
+        //TODO Bu method acil yazılmalı!!
+        return null;
+    }
+
+    private static byte[] getBLOBFromURL(String recipeImageURL) {
+        //TODO Bu method acil yazılmalı!!
+        return null;
+    }
+
+    public boolean deleteRecipeItem(long itemId) {
+        return db.delete(RecipeItem.TABLE_NAME, RecipeItem.COLUMN_NAME_ID_FOR_API + "=?",
                 new String[]{String.valueOf(itemId)}) != 0;
     }
 
-   /* public List<RecipeItem> fetchAllFoodItems() {
+   /*public List<RecipeItem> fetchAllFavorites() {
         List<RecipeItem> foodItems = new ArrayList<RecipeItem>();
 
         Cursor cursor = db.query(RecipeItem.TABLE_NAME, new String[]{
                 RecipeItem._ID, RecipeItem.COLUMN_NAME_ITEM, RecipeItem.COLUMN_NAME_CAL,
-                RecipeItem.COLUMN_NAME_CATEGORY, RecipeItem.ITEM_IMAGE}, RecipeItem.COLUMN_NAME_CATEGORY + " != 5 ", null, null, null, null);
+                RecipeItem.COLUMN_NAME_CATEGORY, RecipeItem.COLUMN_NAME_ITEM_IMAGE}, RecipeItem.COLUMN_NAME_CATEGORY + " != 5 ", null, null, null, null);
 
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
@@ -88,27 +103,40 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return foodItems;
     }*/
 
-   /* public List<FoodItem> fetchAllItemsIn(int category) {
-        List<FoodItem> foodItems = new ArrayList<FoodItem>();
 
-        Cursor cursor = db.query(FoodItem.TABLE_NAME, new String[]{
-                        FoodItem._ID, FoodItem.COLUMN_NAME_ITEM, FoodItem.COLUMN_NAME_CAL,
-                        FoodItem.COLUMN_NAME_CATEGORY,FoodItem.ITEM_IMAGE}, FoodItem.COLUMN_NAME_CATEGORY + " == ? ", new String[] { String.valueOf(category) }, null, null,
-                FoodItem._ID + " DESC");
+   public List<RecipeItem> fetchAllItemsIn(String category) {
+        List<RecipeItem> recipeItems = new ArrayList<RecipeItem>();
+
+        Cursor cursor = db.query(RecipeItem.TABLE_NAME, new String[]{
+                RecipeItem._ID, //We'll get these.
+                RecipeItem.COLUMN_NAME_ID_FOR_API,
+                RecipeItem.COLUMN_NAME_ITEM,
+                RecipeItem.COLUMN_NAME_CAL,
+                RecipeItem.COLUMN_NAME_MEAL_TYPE,
+                RecipeItem.COLUMN_NAME_DESCRIPTION,
+                RecipeItem.COLUMN_NAME_ITEM_IMAGE,
+                RecipeItem.COLUMN_NAME_DIRECTIONS}, //We'll get these.
+                RecipeItem.COLUMN_NAME_CATEGORY + " == ? ", new String[] {category}, null, null,
+                RecipeItem._ID + " DESC");
 
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                FoodItem foodItem = new FoodItem(cursor.getString(1), Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)),cursor.getBlob(4));
-                foodItem.setId(Integer.parseInt(cursor.getString(0)));
+                RecipeItem recipeItem = new RecipeItem(cursor.getLong(0), cursor.getLong(1),cursor.getString(2),cursor.getInt(3), cursor.getString(4),
+                        cursor.getString(5), cursor.getBlob(6),getArrayFromString(cursor.getString(7)));
                 // Adding contact to list
-                foodItems.add(foodItem);
+                recipeItems.add(recipeItem);
             } while (cursor.moveToNext());
         }
 
         // return contact list
-        return foodItems;
-    }*/
+        return recipeItems;
+    }
+
+    private String[] getArrayFromString(String string) {
+        //TODO Acil implement et!!
+        return null;
+    }
 
     // Update metodu şimdilik kullanmayacağız
     // In case you want to update entry you can make use of this function
@@ -117,7 +145,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(FoodItem.COLUMN_NAME_ITEM, foodItems.getItemName());
         values.put(FoodItem.COLUMN_NAME_CAL, foodItems.getCalories());
         values.put(FoodItem.COLUMN_NAME_CATEGORY, foodItems.getCategory());
-        values.put(FoodItem.ITEM_IMAGE, foodItems.getImage());
+        values.put(FoodItem.COLUMN_NAME_ITEM_IMAGE, foodItems.getImage());
 
         return db.update(FoodItem.TABLE_NAME, values, FoodItem._ID + "=?",
                 new String[]{String.valueOf(foodItems.getId())});
