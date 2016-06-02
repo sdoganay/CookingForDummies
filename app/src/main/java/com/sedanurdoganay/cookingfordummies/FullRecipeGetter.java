@@ -44,8 +44,8 @@ class FullRecipeGetter extends AsyncTask<Long, Void, RecipeItem> {
             item.setId(recipe.getLong("recipe_id"));
             item.setDescription(recipe.getString("recipe_description"));
             item.setName(recipe.getString("recipe_name"));
-            item.setRecipeImageURL(new URL(recipe.getJSONObject("recipe_images").getString("recipe_image")));
-            item.setRecipeURL(new URL(recipe.getString("recipe_url")));
+            item.setRecipeImageURL(recipe.getJSONObject("recipe_images").getString("recipe_image"));
+            item.setRecipeURL(recipe.getString("recipe_url"));
             item.setCal(recipe.getJSONObject("serving_sizes").getJSONObject("serving").getInt("calories"));
             item.setDirections(getDirectionsFromJSON(recipe));
 
