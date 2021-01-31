@@ -1,5 +1,4 @@
 # CookingForDummies
-Project.
 
 This is a recipe app we've built for our Android class in OzU.
 You can search different recipes by ingredients.
